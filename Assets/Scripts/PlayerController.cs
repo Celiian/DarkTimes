@@ -72,8 +72,6 @@ public class PlayerController : MonoBehaviour
         _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, m_PlayerHeight, m_GroundLayer);
 
         _attacking = stateInfo.IsName(attackMode) ? true : false;
-
-        Debug.Log(stateInfo.IsName(attackMode));
        
         if (!_attacking)
         {
