@@ -345,9 +345,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Speed: 7
-  m_JumpForce: 5
+  m_JumpForce: 6
   m_Rigidbody: {fileID: 931873726}
-  m_PlayerHeight: 1
+  m_PlayerHeight: 0.6
   m_GroundLayer:
     serializedVersion: 2
     m_Bits: 64
