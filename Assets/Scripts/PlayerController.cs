@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     private bool _spearMode = false;
 
+    private bool _sprint = false;
+
     private SpriteRenderer swordRenderer;
 
     private SpriteRenderer spearRenderer;
@@ -64,12 +66,16 @@ public class PlayerController : MonoBehaviour
         var horizontalInput = Input.GetAxis("Horizontal");
 
         var attackMode = "Attack";
-        var sprintMode = "Sprint";
+        var sprintMode = "Move";
+        var GroundMode = "Grounded";
+        var JumpMode = "Jump";
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
 
         _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, m_PlayerHeight, m_GroundLayer);
+        anim.SetBool(GroundMode, Physics2D.Raycast(transform.position, Vector2.down, (float)(m_PlayerHeight * 1.6), m_GroundLayer));
+
 
         _attacking = stateInfo.IsName(attackMode) ? true : false;
        
@@ -83,26 +89,42 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     _jump = true;
+                    anim.SetTrigger(JumpMode);
 
                 }
 
-                if (Input.GetKeyDown(KeyCode.W))
+                if (Input.GetKeyDown(KeyCode.L))
                 {
 
-                    _spearMode = !_spearMode;                    
+                    _spearMode = !_spearMode;
+                    _sprint = false;
                 }
 
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.K))
                 {
 
                     anim.SetTrigger(attackMode);
+                    _sprint = false;
+                }
+
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    _sprint = true;
+                   
+                }
+
+                if (Input.GetKeyUp(KeyCode.LeftShift))
+                {
+                    _sprint = false;
 
                 }
 
                 if (Mathf.Abs(horizontalInput) > 0.1f)
                 {
 
-                    m_Rigidbody.velocity = new Vector2(horizontalInput * m_Speed, m_Rigidbody.velocity.y);
+                    var speed = (float)(m_Speed * (_sprint ? 1.7 : 1));
+
+                    m_Rigidbody.velocity = new Vector2(horizontalInput * speed, m_Rigidbody.velocity.y);
 
                     if (horizontalInput > 0.01f)
                         transform.localScale = Vector3.one;
@@ -114,7 +136,21 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                anim.SetBool(sprintMode, false);
+                if (Mathf.Abs(horizontalInput) > 0.1f)
+                {
+
+                    var speed = (float)(m_Speed * (_sprint ? 1.7 : 1));
+
+                    m_Rigidbody.velocity = new Vector2(horizontalInput * speed, m_Rigidbody.velocity.y);
+
+                    if (horizontalInput > 0.01f)
+                        transform.localScale = Vector3.one;
+                    else if (horizontalInput < -0.01f)
+                        transform.localScale = new Vector3(-1, 1, 1);
+
+                }
+
+                // anim.SetBool(sprintMode, false);
 
             }
         }
@@ -123,8 +159,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-
         if (_jump)
         {
             _jump = false;
