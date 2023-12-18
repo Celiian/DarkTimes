@@ -21,7 +21,10 @@ public class PlayerController : MonoBehaviour
     private LayerMask m_GroundLayer;
 
     [SerializeField]
-    private Animator anim;
+    private Animator animSpear;
+
+    [SerializeField]
+    private Animator animSword;
 
 
     private bool _isGrounded = false;
@@ -30,20 +33,53 @@ public class PlayerController : MonoBehaviour
 
     private bool _attacking = false;
 
+    private bool _spearMode = false;
+
+    private SpriteRenderer swordRenderer;
+
+    private SpriteRenderer spearRenderer;
+
+    private void Start()
+    {
+        swordRenderer = animSword.GetComponent<SpriteRenderer>();
+        spearRenderer = animSpear.GetComponent<SpriteRenderer>();
+
+    }
 
     void Update()
     {
+        if (_spearMode)
+        {
+            swordRenderer.enabled = false;
+            spearRenderer.enabled = true;
+        }
+        else
+        {
+            swordRenderer.enabled = true;
+            spearRenderer.enabled = false;
+        }
+
+        var anim = _spearMode ? animSpear : animSword;
+
         var horizontalInput = Input.GetAxis("Horizontal");
+
+        var attackMode = "Attack";
+        var sprintMode = "Sprint";
+
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+
         _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, m_PlayerHeight, m_GroundLayer);
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0); // Use layer 0 for the base layer.
 
-        _attacking = stateInfo.IsName("Attack 1") ? true : false;
+        _attacking = stateInfo.IsName(attackMode) ? true : false;
 
+        Debug.Log(stateInfo.IsName(attackMode));
+       
         if (!_attacking)
         {
             if (_isGrounded)
             {
-                anim.SetBool("Sprint", Mathf.Abs(m_Rigidbody.velocity.x) > 1);
+                anim.SetBool(sprintMode, Mathf.Abs(m_Rigidbody.velocity.x) > 1);
 
 
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -52,10 +88,16 @@ public class PlayerController : MonoBehaviour
 
                 }
 
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+
+                    _spearMode = !_spearMode;                    
+                }
+
                 if (Input.GetKeyDown(KeyCode.E))
                 {
 
-                    anim.SetTrigger("Attack 1");
+                    anim.SetTrigger(attackMode);
 
                 }
 
@@ -74,7 +116,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                anim.SetBool("Sprint", false);
+                anim.SetBool(sprintMode, false);
 
             }
         }
