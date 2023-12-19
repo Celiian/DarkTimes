@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator m_animSpear;
     [SerializeField] private Animator m_animSword;
     [SerializeField] private bool m_doubleJump;
+    [SerializeField] private bool m_facingLeft;
+    [SerializeField] private float m_attackStrengh;
 
     private bool isGrounded = false;
     private bool jump = false;
@@ -97,12 +99,12 @@ public class PlayerController : MonoBehaviour
         var jumpMode = "Jump";
 
         anim.SetBool(sprintMode, Mathf.Abs(m_rigidbody.velocity.x) > 1);
-        var horizontalInput = Input.GetAxis("Horizontal");
 
         if (Input.GetKeyDown(KeyCode.K))
         {
             anim.SetTrigger("Attack");
-            HandleAttacking(horizontalInput);
+            Invoke(nameof(HandleAttacking), 0.5f);
+            Invoke(nameof(HandleAttacking), 1);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -128,10 +130,12 @@ public class PlayerController : MonoBehaviour
 
         if (horizontalInput > 0.01f)
         {
+            m_facingLeft = false;
             transform.localScale = Vector3.one;
         }
         else if (horizontalInput < -0.01f)
         {
+            m_facingLeft = true;
             transform.localScale = new Vector3(-1, 1, 1);
         }
     }
@@ -157,21 +161,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleAttacking(float horizontalInput)
+    private void HandleAttacking()
     {
-        var rayDirection = horizontalInput > 0 ? Vector2.right : Vector2.left;
+        var rayDirection = m_facingLeft ? Vector2.left : Vector2.right;
         var attackRangeMultiplier = spearMode ? 1.6f : 1;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, m_attackRange * attackRangeMultiplier, m_enemyLayer);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, rayDirection, m_attackRange * attackRangeMultiplier, m_enemyLayer);
 
-        if (hit.collider != null)
+        foreach(var hit in hits)
         {
+            if (hit.collider != null)
+            {
 
-            var controller = hit.collider.GetComponent<PunchingBallController>();
+                var controller = hit.collider.GetComponent<PunchingBallController>();
 
-            controller.test();
+                controller.takeHit(rayDirection.x, m_attackStrengh);
+            }
 
-            Debug.Log("Touching enemy");
         }
+       
     }
 }

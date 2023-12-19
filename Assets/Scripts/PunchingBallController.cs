@@ -6,26 +6,28 @@ using UnityEngine;
 
 public class PunchingBallController : MonoBehaviour
 {
+    [SerializeField] private Rigidbody2D m_rigidbody;
+    [SerializeField] private float m_speed;
 
-    private bool _touched = false;
+    private bool _attacked = false;
+    private float _attackDirection;
+    private float _attackStrengh;
 
-    public void test()
+    public void takeHit(float attackDirection, float attackStrenght)
     {
-        Debug.Log("yo");
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
+        _attackDirection = attackDirection;
+        _attackStrengh = attackStrenght;
+        _attacked = true;
         
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
-        if (_touched)
+        if (_attacked)
         {
-            // m_rigidbody.velocity = new Vector2(3, m_rigidbody.velocity.y);
+            _attacked = false;
+            m_rigidbody.velocity = new Vector2(_attackDirection *  _attackStrengh, m_rigidbody.velocity.y);
 
         }
     }
