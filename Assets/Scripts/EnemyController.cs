@@ -24,6 +24,9 @@ public class EnemyController : MonoBehaviour
     private Animator anim;
 
     [SerializeField]
+    private Animator animAttack;
+
+    [SerializeField]
     private float m_PatrolDistance = 1f;
 
     private Vector2 m_OriginalPosition;
@@ -38,7 +41,6 @@ public class EnemyController : MonoBehaviour
         m_OriginalPosition = transform.position;
         m_PatrolTarget = m_FacingLeft ? m_OriginalPosition - new Vector2(m_PatrolDistance, 0f) : m_OriginalPosition + new Vector2(m_PatrolDistance, 0f);
     }
-
 
     void Update()
     {
@@ -59,8 +61,6 @@ public class EnemyController : MonoBehaviour
             m_IsFacingPlayer = false;
         }
 
-       
-
         if (distanceToPlayer < m_aggroRange)
         { 
             m_IsPatrolling = false;
@@ -68,17 +68,16 @@ public class EnemyController : MonoBehaviour
             {
                 Flip();
                 m_IsFacingPlayer = true;
-
             }
 
             var direction = (m_Player.position - transform.position).normalized;
             m_Rigidbody.velocity = new Vector2(direction.x * m_Speed, m_Rigidbody.velocity.y);
             anim.SetBool("Move", true);
-          
+            // Trigger event for animation enemy attack
+            animAttack.SetTrigger("Attack");
         }
         else
         {
-
             Patrol();    
         }
     }
@@ -105,19 +104,16 @@ public class EnemyController : MonoBehaviour
         m_Rigidbody.velocity = new Vector2(direction.x * m_Speed, m_Rigidbody.velocity.y);
         anim.SetBool("Move", true);        
     }
-
-
-
    
-        void Flip()
-        {
+    void Flip()
+    {
         if(m_FacingLeft)
         {
             transform.localScale = Vector3.one;
              m_FacingLeft = false;
-
         }
-        else {
+        else 
+        {
             m_FacingLeft = true;
             transform.localScale = new Vector3(-1, 1, 1);
         }
