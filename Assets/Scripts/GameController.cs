@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
         if(countdownTime <= 0)
         {
             countdownTime = 0;
-            m_PlayerController.GetComponent<PlayerController>().die();
+            m_PlayerController.GetComponent<PlayerActionsController>().die();
         }
 
         countdownText.text = "0:00.00";
@@ -85,7 +85,7 @@ public class GameController : MonoBehaviour
         if (countdownTime <= 0)
         {
             countdownTime = 0;
-            m_PlayerController.GetComponent<PlayerController>().die();
+            m_PlayerController.GetComponent<PlayerActionsController>().die();
         }
         int minutes = Mathf.FloorToInt(countdownTime / 60);
         int seconds = Mathf.FloorToInt(countdownTime % 60);
