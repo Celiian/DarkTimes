@@ -354,6 +354,7 @@ MonoBehaviour:
     m_Bits: 64
   animSpear: {fileID: 2066934670}
   animSword: {fileID: 350842987}
+  m_Double_jump: 1
 --- !u!4 &931873725
 Transform:
   m_ObjectHideFlags: 0
