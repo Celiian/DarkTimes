@@ -185,24 +185,27 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAttacking()
     {
-        gameController.DecountTimer(3);
-
-        var rayDirection = m_facingLeft ? Vector2.left : Vector2.right;
-        var attackRangeMultiplier = spearMode ? 1.6f : 1;
-
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, rayDirection, m_attackRange * attackRangeMultiplier, m_enemyLayer);
-
-        foreach(var hit in hits)
+        if (!dead)
         {
-            if (hit.collider != null)
+            gameController.DecountTimer(3);
+
+            var rayDirection = m_facingLeft ? Vector2.left : Vector2.right;
+            var attackRangeMultiplier = spearMode ? 1.6f : 1;
+
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, rayDirection, m_attackRange * attackRangeMultiplier, m_enemyLayer);
+
+            foreach (var hit in hits)
             {
+                if (hit.collider != null)
+                {
 
-                var controller = hit.collider.GetComponent<PunchingBallController>();
+                    var controller = hit.collider.GetComponent<PunchingBallController>();
 
-                controller.takeHit(rayDirection.x, spearMode ? m_spearAttackStrengh : m_swordAttackStrengh);
+                    controller.takeHit(rayDirection.x, spearMode ? m_spearAttackStrengh : m_swordAttackStrengh);
+                }
+
             }
 
         }
-       
     }
 }
