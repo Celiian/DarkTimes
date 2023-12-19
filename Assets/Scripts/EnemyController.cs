@@ -17,6 +17,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private bool m_FacingLeft;
 
+    [SerializeField]
+    private Animator anim;
+
 
     void Update()
     {
@@ -30,7 +33,7 @@ public class EnemyController : MonoBehaviour
         if(seing_player.collider != null)
         {
             m_Rigidbody.velocity = new Vector2(vector.x * m_Speed, m_Rigidbody.velocity.y);
-
+            anim.SetBool("Move", true);
         }
         else
         {
@@ -43,9 +46,11 @@ public class EnemyController : MonoBehaviour
                 transform.localScale = m_FacingLeft ? Vector3.one : new Vector3(-1, 1, 1);
                 m_FacingLeft = !m_FacingLeft;
                 m_Rigidbody.velocity = new Vector2(vector.x * m_Speed, m_Rigidbody.velocity.y);
-
+                anim.SetBool("Move", true);
             }
-          
+            else {
+                anim.SetBool("Move", false);
+            }
         }
 
     }
