@@ -46,6 +46,20 @@ public class EnemyController : MonoBehaviour
 
     private System.Random random = new System.Random();
 
+    private int stunned = 0;
+
+
+    private bool _attacked = false;
+    private float _attackDirection;
+    private float _attackStrengh;
+
+    public void takeHit(float attackDirection, float attackStrength)
+    {
+        _attackDirection = attackDirection;
+        _attackStrengh = attackStrength;
+        _attacked = true;
+
+    }
 
     void Start()
     {
@@ -64,19 +78,39 @@ public class EnemyController : MonoBehaviour
         anim.SetBool("Move", Mathf.Abs(m_Rigidbody.velocity.x) > 1);
 
 
-        if (distanceToPlayer < m_aggroRange)
-        {            
-            MoveToLocation(m_Player.position);
-            // Trigger event for animation enemy attack
-            animAttack.SetTrigger("Attack");
-        }
-        else if(m_PatrolEnabled)
+        if (_attacked)
         {
-            Patrol();    
+            _attacked = false;
+            stunned = 10;
+            float forceMultiplier = _attackStrengh / m_Rigidbody.mass;
+            Vector2 attackForce = new Vector2(_attackDirection * forceMultiplier, m_Rigidbody.velocity.y);
+
+            m_Rigidbody.AddForce(attackForce, ForceMode2D.Impulse);
         }
-        else if(m_RandomMovements)
+        else if(stunned == 0)
         {
-            MoveRandom();
+
+            if (distanceToPlayer < m_aggroRange)
+            {
+                if (distanceToPlayer > 2f)
+                {
+                    MoveToLocation(m_Player.position, (float)1.8);
+                }
+                // Trigger event for animation enemy attack
+                animAttack.SetTrigger("Attack");
+            }
+            else if (m_PatrolEnabled)
+            {
+                Patrol();
+            }
+            else if (m_RandomMovements)
+            {
+                MoveRandom();
+            }
+        }
+        else if(stunned > 0)
+        {
+            stunned -= 1;
         }
     }
 
@@ -84,7 +118,7 @@ public class EnemyController : MonoBehaviour
     {
         if (_RandomLocation != Vector2.zero)
         {
-            MoveToLocation(_RandomLocation);
+            MoveToLocation(_RandomLocation, 1);
 
             if (Vector2.Distance(transform.position, _RandomLocation) <= 0.1f)
             {
@@ -118,7 +152,7 @@ public class EnemyController : MonoBehaviour
             m_PatrolTarget = !m_FacingLeft ? m_OriginalPosition - new Vector2(m_PatrolDistance, 0f) : m_OriginalPosition + new Vector2(m_PatrolDistance, 0f);
         }
 
-        MoveToLocation(m_PatrolTarget);
+        MoveToLocation(m_PatrolTarget, 1);
     }
 
     void UpdateFacingPlayer(bool isPlayerRight)
@@ -148,7 +182,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void MoveToLocation(Vector2 targetPosition)
+    void MoveToLocation(Vector2 targetPosition, float speed)
     {
 
         var isTargetRight = targetPosition.x - transform.position.x > 0;
@@ -165,6 +199,6 @@ public class EnemyController : MonoBehaviour
 
         var direction = (targetPosition - (Vector2)transform.position).normalized;
 
-        m_Rigidbody.velocity = new Vector2(direction.x * m_Speed, m_Rigidbody.velocity.y);
+        m_Rigidbody.velocity = new Vector2(direction.x * (m_Speed * speed), m_Rigidbody.velocity.y);
     }
 }
