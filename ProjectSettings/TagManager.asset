@@ -17,27 +17,27 @@ TagManager:
   - Enemy
   - Wall
   - Cealing
-  - 
+  - Attack
   - DecoFront
   - DecoBack
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
   - Background
   m_SortingLayers:
   - name: Default

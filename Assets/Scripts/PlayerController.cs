@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float m_speed;
     [SerializeField] private float m_jumpForce;
-    [SerializeField] private float m_attackRange;
     [SerializeField] private float m_playerHeight;
     [SerializeField] private Rigidbody2D m_rigidbody;
     [SerializeField] private LayerMask m_groundLayer;
@@ -18,6 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float m_spearAttackStrengh;
     [SerializeField] private float m_swordAttackStrengh;
     [SerializeField] private GameObject m_gameController;
+    [SerializeField] private BoxCollider2D m_SwordAttackCollider;
+    [SerializeField] private BoxCollider2D m_SpearAttackCollider;
 
     private bool isGrounded = false;
     private bool jump = false;
@@ -122,9 +123,26 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             anim.SetTrigger("Attack");
+            
+            if (anim.GetBool("Move"))
+            {
+                if (spearMode) {
+                    Invoke(nameof(dash), 0.3f);
+                }
+                else
+                {
+                    Invoke(nameof(dash), 0.2f);
+                }
+                
+            }
+            
             Invoke(nameof(HandleAttacking), 0.5f);
             if (!spearMode)
             {
+                if (anim.GetBool("Move"))
+                {
+                    Invoke(nameof(dash), 0.4f);
+                }
                 Invoke(nameof(HandleAttacking), 1);
             }
         }
@@ -141,6 +159,17 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger(jumpMode);
             jumpedTwice = true;
         }
+    }
+
+    private void dash()
+    {
+        var attackDirection = m_facingLeft ? -1 : 1;
+
+        Vector2 currentVelocity = m_rigidbody.velocity;
+
+        Vector2 attackForce = new Vector2(attackDirection * Mathf.Abs(currentVelocity.x), currentVelocity.y);
+
+        m_rigidbody.AddForce(attackForce, ForceMode2D.Impulse);
     }
 
     private void HandleMovement(float horizontalInput)
@@ -189,21 +218,32 @@ public class PlayerController : MonoBehaviour
         {
             gameController.DecountTimer(3);
 
-            var rayDirection = m_facingLeft ? Vector2.left : Vector2.right;
-            var attackRangeMultiplier = spearMode ? 1.6f : 1;
+            var attackCollider = spearMode ? m_SpearAttackCollider : m_SwordAttackCollider;
 
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, rayDirection, m_attackRange * attackRangeMultiplier, m_enemyLayer);
 
-            foreach (var hit in hits)
+            Collider2D[] colliders = new Collider2D[100];
+
+            ContactFilter2D contactFilter = new ContactFilter2D();
+            contactFilter.SetLayerMask(m_enemyLayer);
+
+            int numColliders = attackCollider.OverlapCollider(contactFilter, colliders);
+
+            for (int i = 0; i < numColliders; i++)
             {
-                if (hit.collider != null)
+                Collider2D collider = colliders[i];
+
+                if (collider.CompareTag("Enemy"))
                 {
+                    var controller = collider.GetComponent<EnemyController>();
 
-                    var controller = hit.collider.GetComponent<PunchingBallController>();
+                    var attackDirection = m_facingLeft ? -1 : 1;
 
-                    controller.takeHit(rayDirection.x, spearMode ? m_spearAttackStrengh : m_swordAttackStrengh);
+                    Vector2 currentVelocity = m_rigidbody.velocity;
+
+                    var attackStrength = (spearMode ? m_spearAttackStrengh : m_swordAttackStrengh) * (currentVelocity.x > 0 ? currentVelocity.x / 4 : 1);
+
+                    controller.takeHit(attackDirection, attackStrength);
                 }
-
             }
 
         }
