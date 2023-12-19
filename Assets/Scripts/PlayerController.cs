@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_facingLeft;
     [SerializeField] private float m_spearAttackStrengh;
     [SerializeField] private float m_swordAttackStrengh;
+    [SerializeField] private GameObject m_gameController;
 
     private bool isGrounded = false;
     private bool jump = false;
@@ -24,6 +25,9 @@ public class PlayerController : MonoBehaviour
     private bool attacking = false;
     private bool spearMode = false;
     private bool sprint = false;
+    private bool dead = false;
+    private GameController gameController;
+
 
     private SpriteRenderer swordRenderer;
     private SpriteRenderer spearRenderer;
@@ -32,48 +36,60 @@ public class PlayerController : MonoBehaviour
     {
         swordRenderer = m_animSword.GetComponent<SpriteRenderer>();
         spearRenderer = m_animSpear.GetComponent<SpriteRenderer>();
-    }
+        gameController = m_gameController.GetComponent<GameController>();
 
+    }
+    public void die()
+    {
+        dead = true;
+        var anim = spearMode ? m_animSpear : m_animSword;
+        anim.SetBool("Dead", true);
+
+    }
     void Update()
     {
-        UpdateWeaponMode();
-
-        var anim = spearMode ? m_animSpear : m_animSword;
-        var horizontalInput = Input.GetAxis("Horizontal");
-        var attackMode = "Attack";
-        //var sprintMode = "Move";
-        var groundMode = "Grounded";
-        //var jumpMode = "Jump";
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, m_playerHeight, m_groundLayer);
-        anim.SetBool(groundMode, Physics2D.Raycast(transform.position, Vector2.down, m_playerHeight * 1.6f, m_groundLayer));
-        attacking = stateInfo.IsName(attackMode);
-
-        if (!attacking)
+        if (!dead)
         {
-            if (isGrounded)
-            {
-                HandleGroundedInput(anim);
+            UpdateWeaponMode();
 
-                if (Input.GetKeyDown(KeyCode.L))
+            var anim = spearMode ? m_animSpear : m_animSword;
+            var horizontalInput = Input.GetAxis("Horizontal");
+            var attackMode = "Attack";
+            //var sprintMode = "Move";
+            var groundMode = "Grounded";
+            //var jumpMode = "Jump";
+            AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+            isGrounded = Physics2D.Raycast(transform.position, Vector2.down, m_playerHeight, m_groundLayer);
+            anim.SetBool(groundMode, Physics2D.Raycast(transform.position, Vector2.down, m_playerHeight * 1.6f, m_groundLayer));
+            attacking = stateInfo.IsName(attackMode);
+
+            if (!attacking)
+            {
+                if (isGrounded)
                 {
-                    spearMode = !spearMode;
+                    HandleGroundedInput(anim);
+
+                    if (Input.GetKeyDown(KeyCode.L))
+                    {
+                        spearMode = !spearMode;
+                    }
+
+                    sprint = Input.GetKey(KeyCode.LeftShift);
+                    gameController.AccelerateTimer(sprint);
                 }
 
-                sprint = Input.GetKey(KeyCode.LeftShift);
+                HandleJumpInput(anim);
+                HandleMovement(horizontalInput);
             }
-
-            HandleJumpInput(anim);
-            HandleMovement(horizontalInput);
-        }
-       
+        }  
     }
 
     private void FixedUpdate()
     {
         if (jump)
         {
+            gameController.DecountTimer(2);
             var force = jumpedTwice ? m_jumpForce * 1.1f : m_jumpForce;
             jump = false;
             m_rigidbody.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
@@ -100,7 +116,9 @@ public class PlayerController : MonoBehaviour
         var jumpMode = "Jump";
 
         anim.SetBool(sprintMode, Mathf.Abs(m_rigidbody.velocity.x) > 1);
+        gameController.PauseTimer(Mathf.Abs(m_rigidbody.velocity.x) > 1);
 
+        
         if (Input.GetKeyDown(KeyCode.K))
         {
             anim.SetTrigger("Attack");
@@ -167,22 +185,27 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAttacking()
     {
-        var rayDirection = m_facingLeft ? Vector2.left : Vector2.right;
-        var attackRangeMultiplier = spearMode ? 1.6f : 1;
-
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, rayDirection, m_attackRange * attackRangeMultiplier, m_enemyLayer);
-
-        foreach(var hit in hits)
+        if (!dead)
         {
-            if (hit.collider != null)
+            gameController.DecountTimer(3);
+
+            var rayDirection = m_facingLeft ? Vector2.left : Vector2.right;
+            var attackRangeMultiplier = spearMode ? 1.6f : 1;
+
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, rayDirection, m_attackRange * attackRangeMultiplier, m_enemyLayer);
+
+            foreach (var hit in hits)
             {
+                if (hit.collider != null)
+                {
 
-                var controller = hit.collider.GetComponent<PunchingBallController>();
+                    var controller = hit.collider.GetComponent<PunchingBallController>();
 
-                controller.takeHit(rayDirection.x, spearMode ? m_spearAttackStrengh : m_swordAttackStrengh);
+                    controller.takeHit(rayDirection.x, spearMode ? m_spearAttackStrengh : m_swordAttackStrengh);
+                }
+
             }
 
         }
-       
     }
 }
