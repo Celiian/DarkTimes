@@ -96,25 +96,13 @@ public class PlayerActionsController : MonoBehaviour
             _anim.SetTrigger("Attack");
             if (_anim.GetBool("Move"))
             {
-        
-                if (_spearMode) {
-                    Invoke(nameof(dash), 0.3f);
-                }
-                else
-                {
-                    Invoke(nameof(dash), 0.2f);
-                }
-                
+                Invoke(nameof(dash), 0.2f);
             }
             
-            Invoke(nameof(HandleAttacking), 0.5f);
+            Invoke(nameof(HandleAttacking), 0.25f);
             if (!_spearMode)
             {
-                if (_anim.GetBool("Move"))
-                {
-                    Invoke(nameof(dash), 0.4f);
-                }
-                Invoke(nameof(HandleAttacking), 1);
+                Invoke(nameof(HandleAttacking), 0.5f);
             }
         }
 
@@ -156,7 +144,7 @@ public class PlayerActionsController : MonoBehaviour
             if (collider.CompareTag("Enemy"))
             {
 
-                var controller = collider.GetComponent<PunchingBallController>();
+                var controller = collider.GetComponent<EnemyController>();
 
                 var attackDirection = _facingLeft ? -1 : 1;
 

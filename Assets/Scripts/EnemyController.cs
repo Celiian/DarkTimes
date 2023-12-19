@@ -37,6 +37,8 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField]
     private float m_PatrolDistance = 1f;
+  
+
 
     private Vector2 m_OriginalPosition;
     private Vector2 m_PatrolTarget;
@@ -51,14 +53,16 @@ public class EnemyController : MonoBehaviour
 
     private bool _attacked = false;
     private float _attackDirection;
-    private float _attackStrengh;
+    private float _attackStrength;
 
-    public void takeHit(float attackDirection, float attackStrength)
+
+    public void takeHit(float attackDirection, float attackStrength, Vector2 attackSpeed)
     {
         _attackDirection = attackDirection;
-        _attackStrengh = attackStrength;
+        _attackStrength = attackStrength;
         _attacked = true;
 
+        ApplyHit(m_Rigidbody, attackSpeed);
     }
 
     void Start()
@@ -80,12 +84,7 @@ public class EnemyController : MonoBehaviour
 
         if (_attacked)
         {
-            _attacked = false;
-            stunned = 10;
-            float forceMultiplier = _attackStrengh / m_Rigidbody.mass;
-            Vector2 attackForce = new Vector2(_attackDirection * forceMultiplier, m_Rigidbody.velocity.y);
-
-            m_Rigidbody.AddForce(attackForce, ForceMode2D.Impulse);
+           
         }
         else if(stunned == 0)
         {
@@ -201,4 +200,39 @@ public class EnemyController : MonoBehaviour
 
         m_Rigidbody.velocity = new Vector2(direction.x * (m_Speed * speed), m_Rigidbody.velocity.y);
     }
+
+
+   
+
+
+    void ApplyHit(Rigidbody2D rb, Vector2 attackSpeed)
+    {
+        if (_attacked)
+        {
+            stunned = 60;
+
+            _attacked = false;
+
+            Vector2 force = CalculateImpulseForce(_attackStrength, attackSpeed, rb.mass);
+
+            force.x = Mathf.Abs(force.x) * _attackDirection;
+
+            m_Rigidbody.AddForce(force, ForceMode2D.Impulse);
+        }
+    }
+
+    Vector2 CalculateImpulseForce(float strength, Vector2 attackSpeed, float mass)
+    {
+
+        if (attackSpeed.x == 0)
+        {
+            attackSpeed.x = 1;
+        }
+
+        float deltaVx = (strength * attackSpeed.x) / mass;
+        float deltaVy = deltaVx / (10 * mass);
+        return new Vector2(deltaVx, deltaVy);
+    }
+
+
 }

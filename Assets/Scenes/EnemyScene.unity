@@ -1095,6 +1095,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerHeight: 0.6
+  m_SpearAttackStrengh: 5
+  m_SwordAttackStrengh: 3
   m_Rigidbody: {fileID: 1747727319}
   m_GroundLayer:
     serializedVersion: 2
@@ -1104,9 +1106,6 @@ MonoBehaviour:
     m_Bits: 128
   m_AnimSpear: {fileID: 545783986}
   m_AnimSword: {fileID: 1363443521}
-  m_FacingLeft: 0
-  m_SpearAttackStrengh: 10
-  m_SwordAttackStrengh: 6
   m_GameController: {fileID: 141441748}
   m_Player: {fileID: 1747727317}
   m_SwordAttackCollider: {fileID: 1949827265}
