@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_facingLeft;
     [SerializeField] private float m_spearAttackStrengh;
     [SerializeField] private float m_swordAttackStrengh;
+    [SerializeField] private GameObject m_gameController;
 
     private bool isGrounded = false;
     private bool jump = false;
@@ -24,6 +25,8 @@ public class PlayerController : MonoBehaviour
     private bool attacking = false;
     private bool spearMode = false;
     private bool sprint = false;
+    private GameController gameController;
+
 
     private SpriteRenderer swordRenderer;
     private SpriteRenderer spearRenderer;
@@ -32,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         swordRenderer = m_animSword.GetComponent<SpriteRenderer>();
         spearRenderer = m_animSpear.GetComponent<SpriteRenderer>();
+        gameController = m_gameController.GetComponent<GameController>();
     }
 
     void Update()
@@ -62,6 +66,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 sprint = Input.GetKey(KeyCode.LeftShift);
+                gameController.AccelerateTimer(sprint);
             }
 
             HandleJumpInput(anim);
@@ -74,6 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         if (jump)
         {
+            gameController.DecountTimer(2);
             var force = jumpedTwice ? m_jumpForce * 1.1f : m_jumpForce;
             jump = false;
             m_rigidbody.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
@@ -100,7 +106,9 @@ public class PlayerController : MonoBehaviour
         var jumpMode = "Jump";
 
         anim.SetBool(sprintMode, Mathf.Abs(m_rigidbody.velocity.x) > 1);
+        gameController.PauseTimer(Mathf.Abs(m_rigidbody.velocity.x) > 1);
 
+        
         if (Input.GetKeyDown(KeyCode.K))
         {
             anim.SetTrigger("Attack");
@@ -167,6 +175,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAttacking()
     {
+        gameController.DecountTimer(3);
+
         var rayDirection = m_facingLeft ? Vector2.left : Vector2.right;
         var attackRangeMultiplier = spearMode ? 1.6f : 1;
 

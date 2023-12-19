@@ -27,8 +27,12 @@ public class PunchingBallController : MonoBehaviour
         if (_attacked)
         {
             _attacked = false;
-            m_rigidbody.velocity = new Vector2(_attackDirection *  _attackStrengh, m_rigidbody.velocity.y);
 
+            float forceMultiplier = _attackStrengh / m_rigidbody.mass;
+            Vector2 attackForce = new Vector2(_attackDirection * forceMultiplier, m_rigidbody.velocity.y);
+
+            m_rigidbody.AddForce(attackForce, ForceMode2D.Impulse);
         }
+
     }
 }
