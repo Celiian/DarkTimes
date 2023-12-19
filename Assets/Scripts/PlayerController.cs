@@ -4,65 +4,85 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float m_speed; // 5
+    [SerializeField] private float m_jumpForce; // 8
+    [SerializeField] private float m_attackRange; // 1.3
+    [SerializeField] private float m_playerHeight; // 0.58
+    [SerializeField] private Rigidbody2D m_rigidbody;
+    [SerializeField] private LayerMask m_groundLayer;
+    [SerializeField] private LayerMask m_enemyLayer;
+    [SerializeField] private Animator m_animSpear;
+    [SerializeField] private Animator m_animSword;
+    [SerializeField] private bool m_doubleJump;
 
-    [SerializeField]
-    private float m_Speed;
-
-    [SerializeField]
-    private float m_JumpForce;
-
-    [SerializeField]
-    private float m_AttackRange;
-
-    [SerializeField]
-    private Rigidbody2D m_Rigidbody;
-
-    [SerializeField]
-    private float m_PlayerHeight;
-
-    [SerializeField]
-    private LayerMask m_GroundLayer;
-
-    [SerializeField]
-    private LayerMask m_EnemyLayer;
-
-    [SerializeField]
-    private Animator animSpear;
-
-    [SerializeField]
-    private Animator animSword;
-
-    [SerializeField]
-    private bool m_Double_jump;
-
-
-
-    private bool _isGrounded = false;
-
-    private bool _jump = false;
-
-    private bool _jumped_twice = false;
-
-    private bool _attacking = false;
-
-    private bool _spearMode = false;
-
-    private bool _sprint = false;
+    private bool isGrounded = false;
+    private bool jump = false;
+    private bool jumpedTwice = false;
+    private bool attacking = false;
+    private bool spearMode = false;
+    private bool sprint = false;
 
     private SpriteRenderer swordRenderer;
-
     private SpriteRenderer spearRenderer;
 
     private void Start()
     {
-        swordRenderer = animSword.GetComponent<SpriteRenderer>();
-        spearRenderer = animSpear.GetComponent<SpriteRenderer>();
-
+        swordRenderer = m_animSword.GetComponent<SpriteRenderer>();
+        spearRenderer = m_animSpear.GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        if (_spearMode)
+        UpdateWeaponMode();
+
+        var anim = spearMode ? m_animSpear : m_animSword;
+        var horizontalInput = Input.GetAxis("Horizontal");
+        var attackMode = "Attack";
+        //var sprintMode = "Move";
+        var groundMode = "Grounded";
+        //var jumpMode = "Jump";
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, m_playerHeight, m_groundLayer);
+        anim.SetBool(groundMode, Physics2D.Raycast(transform.position, Vector2.down, m_playerHeight * 1.6f, m_groundLayer));
+        attacking = stateInfo.IsName(attackMode);
+
+        if (!attacking)
+        {
+            if (isGrounded)
+            {
+                HandleGroundedInput(anim);
+
+                if (Input.GetKeyDown(KeyCode.L))
+                {
+                    spearMode = !spearMode;
+                }
+
+                sprint = Input.GetKey(KeyCode.LeftShift);
+            }
+
+            HandleJumpInput(anim);
+            HandleMovement(horizontalInput);
+        }
+        else
+        {
+            HandleAttacking(horizontalInput);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (jump)
+        {
+            var force = jumpedTwice ? m_jumpForce * 1.1f : m_jumpForce;
+            jump = false;
+            m_rigidbody.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
+        }
+    }
+
+    private void UpdateWeaponMode()
+    {
+        if (spearMode)
         {
             swordRenderer.enabled = false;
             spearRenderer.enabled = true;
@@ -72,117 +92,82 @@ public class PlayerController : MonoBehaviour
             swordRenderer.enabled = true;
             spearRenderer.enabled = false;
         }
-
-        var anim = _spearMode ? animSpear : animSword;
-
-        var horizontalInput = Input.GetAxis("Horizontal");
-
-        var attackMode = "Attack";
-        var sprintMode = "Move";
-        var GroundMode = "Grounded";
-        var JumpMode = "Jump";
-
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-
-
-
-        _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, m_PlayerHeight, m_GroundLayer);
-        anim.SetBool(GroundMode, Physics2D.Raycast(transform.position, Vector2.down, (float)(m_PlayerHeight * 1.6), m_GroundLayer));
-
-        _attacking = stateInfo.IsName(attackMode) ? true : false;
-       
-        if (!_attacking)
-        {
-            if (_isGrounded)
-            {
-                anim.SetBool(sprintMode, Mathf.Abs(m_Rigidbody.velocity.x) > 1);
-
-                if (Input.GetKeyDown(KeyCode.L))
-                {
-
-                    _spearMode = !_spearMode;
-                }
-
-                if (Input.GetKeyDown(KeyCode.K))
-                {
-
-                    anim.SetTrigger(attackMode);
-                }
-
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-
-                    _sprint = true;
-                }
-                else
-                {
-                    _sprint = false;
-                }
-                                              
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (_isGrounded)
-                {
-                    _jump = true;
-                    _jumped_twice = false;
-                    anim.SetTrigger(JumpMode);
-                }
-                else if (m_Double_jump)
-                {
-                    if (!_jumped_twice)
-                    {
-                        _jump = true;
-                        anim.SetTrigger(JumpMode);
-                        _jumped_twice = true;
-                    }
-                }
-            }
-
-         
-            if (Mathf.Abs(horizontalInput) > 0.1f)
-            {
-
-                var speed = (float)(m_Speed * (_sprint ? 1.7 : 1));
-
-                m_Rigidbody.velocity = new Vector2(horizontalInput * speed, m_Rigidbody.velocity.y);
-
-                if (horizontalInput > 0.01f)
-                    transform.localScale = Vector3.one;
-                else if (horizontalInput < -0.01f)
-                    transform.localScale = new Vector3(-1, 1, 1);
-
-            }
-        }
-        else
-        {
-            Vector2 rayDirection = horizontalInput > 0 ? Vector2.right : Vector2.right;
-
-            var AttackRange = _spearMode ? (float)( m_AttackRange * 1.6 ):( m_AttackRange);
-
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, AttackRange, m_EnemyLayer);
-
-            if (hit.collider != null)
-            {
-                Debug.Log("Touching enemy");
-            }
-
-        }
     }
 
-
-    private void FixedUpdate()
+    private void HandleGroundedInput(Animator anim)
     {
-        if (_jump)
+        var sprintMode = "Move";
+        var jumpMode = "Jump";
+
+        anim.SetBool(sprintMode, Mathf.Abs(m_rigidbody.velocity.x) > 1);
+
+        if (Input.GetKeyDown(KeyCode.K))
         {
+            anim.SetTrigger("Attack");
+        }
 
-            var force = _jumped_twice ? (float)(m_JumpForce * 1.1) : m_JumpForce;
-
-            _jump = false;
-            m_Rigidbody.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jump = true;
+            jumpedTwice = false;
+            anim.SetTrigger(jumpMode);
+        }
+        else if (m_doubleJump && !jumpedTwice && Input.GetKeyDown(KeyCode.Space))
+        {
+            jump = true;
+            anim.SetTrigger(jumpMode);
+            jumpedTwice = true;
         }
     }
 
+    private void HandleMovement(float horizontalInput)
+    {
+        var speedMultiplier = sprint ? 1.7f : 1;
+        var speed = m_speed * speedMultiplier;
 
+        m_rigidbody.velocity = new Vector2(horizontalInput * speed, m_rigidbody.velocity.y);
+
+        if (horizontalInput > 0.01f)
+        {
+            transform.localScale = Vector3.one;
+        }
+        else if (horizontalInput < -0.01f)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+
+    private void HandleJumpInput(Animator anim)
+    {
+        var jumpMode = "Jump";
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isGrounded)
+            {
+                jump = true;
+                jumpedTwice = false;
+                anim.SetTrigger(jumpMode);
+            }
+            else if (m_doubleJump && !jumpedTwice)
+            {
+                jump = true;
+                anim.SetTrigger(jumpMode);
+                jumpedTwice = true;
+            }
+        }
+    }
+
+    private void HandleAttacking(float horizontalInput)
+    {
+        var rayDirection = horizontalInput > 0 ? Vector2.right : Vector2.left;
+        var attackRangeMultiplier = spearMode ? 1.6f : 1;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, m_attackRange * attackRangeMultiplier, m_enemyLayer);
+
+        if (hit.collider != null)
+        {
+            Debug.Log("Touching enemy");
+        }
+    }
 }
