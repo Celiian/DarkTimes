@@ -26,12 +26,26 @@ public class EnemyController : MonoBehaviour
 
         var seing_player = Physics2D.Raycast(transform.position, vector, 100, m_PlayerLayer);
 
-        Debug.Log("Seing player");
 
         if(seing_player.collider != null)
         {
             m_Rigidbody.velocity = new Vector2(vector.x * m_Speed, m_Rigidbody.velocity.y);
 
+        }
+        else
+        {
+            vector = !m_FacingLeft ? Vector2.left : Vector2.right;
+
+            seing_player = Physics2D.Raycast(transform.position, vector, 100, m_PlayerLayer);
+
+            if (seing_player.collider != null)
+            {
+                transform.localScale = m_FacingLeft ? Vector3.one : new Vector3(-1, 1, 1);
+                m_FacingLeft = !m_FacingLeft;
+                m_Rigidbody.velocity = new Vector2(vector.x * m_Speed, m_Rigidbody.velocity.y);
+
+            }
+          
         }
 
     }
