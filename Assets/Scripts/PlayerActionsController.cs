@@ -150,9 +150,9 @@ public class PlayerActionsController : MonoBehaviour
 
                 Vector2 currentVelocity = m_Rigidbody.velocity;
 
-                var attackStrength = (_spearMode ? m_SpearAttackStrengh : m_SwordAttackStrengh) * (currentVelocity.x > 0 ? currentVelocity.x / 4 : 1);
+                var attackStrength = (_spearMode ? m_SpearAttackStrengh : m_SwordAttackStrengh) * (currentVelocity.x > 0 ? currentVelocity.x / 8 : 1);
 
-                controller.takeHit(attackDirection, attackStrength, currentVelocity);
+                controller.takeHit(attackDirection, attackStrength);
             }
         }
 

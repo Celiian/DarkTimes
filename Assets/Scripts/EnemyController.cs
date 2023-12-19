@@ -56,13 +56,13 @@ public class EnemyController : MonoBehaviour
     private float _attackStrength;
 
 
-    public void takeHit(float attackDirection, float attackStrength, Vector2 attackSpeed)
+    public void takeHit(float attackDirection, float attackStrength)
     {
         _attackDirection = attackDirection;
         _attackStrength = attackStrength;
         _attacked = true;
 
-        ApplyHit(m_Rigidbody, attackSpeed);
+        ApplyHit(m_Rigidbody);
     }
 
     void Start()
@@ -205,7 +205,7 @@ public class EnemyController : MonoBehaviour
    
 
 
-    void ApplyHit(Rigidbody2D rb, Vector2 attackSpeed)
+    void ApplyHit(Rigidbody2D rb)
     {
         if (_attacked)
         {
@@ -213,7 +213,7 @@ public class EnemyController : MonoBehaviour
 
             _attacked = false;
 
-            Vector2 force = CalculateImpulseForce(_attackStrength, attackSpeed, rb.mass);
+            Vector2 force = CalculateImpulseForce(_attackStrength, rb.mass);
 
             force.x = Mathf.Abs(force.x) * _attackDirection;
 
@@ -221,16 +221,12 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    Vector2 CalculateImpulseForce(float strength, Vector2 attackSpeed, float mass)
+    Vector2 CalculateImpulseForce(float strength, float mass)
     {
 
-        if (attackSpeed.x == 0)
-        {
-            attackSpeed.x = 1;
-        }
-
-        float deltaVx = (strength * attackSpeed.x) / mass;
-        float deltaVy = deltaVx / (10 * mass);
+        
+        float deltaVx = strength / mass;
+        float deltaVy = 0;
         return new Vector2(deltaVx, deltaVy);
     }
 
