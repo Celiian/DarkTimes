@@ -64,10 +64,7 @@ public class PlayerController : MonoBehaviour
             HandleJumpInput(anim);
             HandleMovement(horizontalInput);
         }
-        else
-        {
-            HandleAttacking(horizontalInput);
-        }
+       
     }
 
     private void FixedUpdate()
@@ -100,10 +97,12 @@ public class PlayerController : MonoBehaviour
         var jumpMode = "Jump";
 
         anim.SetBool(sprintMode, Mathf.Abs(m_rigidbody.velocity.x) > 1);
+        var horizontalInput = Input.GetAxis("Horizontal");
 
         if (Input.GetKeyDown(KeyCode.K))
         {
             anim.SetTrigger("Attack");
+            HandleAttacking(horizontalInput);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -167,6 +166,11 @@ public class PlayerController : MonoBehaviour
 
         if (hit.collider != null)
         {
+
+            var controller = hit.collider.GetComponent<PunchingBallController>();
+
+            controller.test();
+
             Debug.Log("Touching enemy");
         }
     }
