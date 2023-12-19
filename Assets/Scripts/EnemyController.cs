@@ -140,13 +140,10 @@ public class EnemyController : MonoBehaviour
 
 
         }
-
-
     }
 
     void Patrol()
     {
-
         if (Vector2.Distance(transform.position, m_PatrolTarget) <= 0.1f)
         {
             m_PatrolTarget = !m_FacingLeft ? m_OriginalPosition - new Vector2(m_PatrolDistance, 0f) : m_OriginalPosition + new Vector2(m_PatrolDistance, 0f);
