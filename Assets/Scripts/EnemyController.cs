@@ -48,18 +48,7 @@ public class EnemyController : MonoBehaviour
 
         var isPlayerRight = Vector2.Distance(m_Player.position, transform.position) <= 0.1f;
 
-        if (!m_FacingLeft && isPlayerRight)
-        {
-            m_IsFacingPlayer = true;
-        }
-        else if (m_FacingLeft && !isPlayerRight)
-        {
-            m_IsFacingPlayer = true;
-        }
-        else
-        {
-            m_IsFacingPlayer = false;
-        }
+        UpdateFacingPlayer(isPlayerRight);
 
         if (distanceToPlayer < m_aggroRange)
         { 
@@ -70,8 +59,7 @@ public class EnemyController : MonoBehaviour
                 m_IsFacingPlayer = true;
             }
 
-            var direction = (m_Player.position - transform.position).normalized;
-            m_Rigidbody.velocity = new Vector2(direction.x * m_Speed, m_Rigidbody.velocity.y);
+            MoveToLocation(m_Player.position);
             anim.SetBool("Move", true);
             // Trigger event for animation enemy attack
             animAttack.SetTrigger("Attack");
@@ -79,6 +67,18 @@ public class EnemyController : MonoBehaviour
         else
         {
             Patrol();    
+        }
+    }
+
+    void UpdateFacingPlayer(bool isPlayerRight)
+    {
+        if (!m_FacingLeft && isPlayerRight || m_FacingLeft && !isPlayerRight)
+        {
+            m_IsFacingPlayer = true;
+        }
+        else
+        {
+            m_IsFacingPlayer = false;
         }
     }
 
@@ -100,9 +100,8 @@ public class EnemyController : MonoBehaviour
             Flip();
         }
 
-        var direction = (m_PatrolTarget - (Vector2)transform.position).normalized;
-        m_Rigidbody.velocity = new Vector2(direction.x * m_Speed, m_Rigidbody.velocity.y);
-        anim.SetBool("Move", true);        
+        MoveToLocation(m_PatrolTarget);
+        anim.SetBool("Move", true);
     }
    
     void Flip()
@@ -117,5 +116,11 @@ public class EnemyController : MonoBehaviour
             m_FacingLeft = true;
             transform.localScale = new Vector3(-1, 1, 1);
         }
-    }  
+    }
+
+    void MoveToLocation(Vector2 targetPosition)
+    {
+        var direction = (targetPosition - (Vector2)transform.position).normalized;
+        m_Rigidbody.velocity = new Vector2(direction.x * m_Speed, m_Rigidbody.velocity.y);
+    }
 }
