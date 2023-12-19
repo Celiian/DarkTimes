@@ -38,79 +38,88 @@ public class EnemyController : MonoBehaviour
         m_OriginalPosition = transform.position;
         m_PatrolTarget = m_FacingLeft ? m_OriginalPosition - new Vector2(m_PatrolDistance, 0f) : m_OriginalPosition + new Vector2(m_PatrolDistance, 0f);
     }
+
+
     void Update()
     {
         var distanceToPlayer = Vector2.Distance(transform.position, m_Player.position);
 
-        if (distanceToPlayer < m_aggroRange)
-        {
-            m_IsPatrolling = false;
-            var direction = (m_Player.position - transform.position).normalized;
-            m_Rigidbody.velocity = new Vector2(direction.x * m_Speed, m_Rigidbody.velocity.y);
-            anim.SetBool("Move", true);
+        var isPlayerRight = Vector2.Distance(m_Player.position, transform.position) <= 0.1f;
 
-            if (!m_IsFacingPlayer)
-            {
-                Flip();
-            }
+        if (!m_FacingLeft && isPlayerRight)
+        {
+            m_IsFacingPlayer = true;
+        }
+        else if (m_FacingLeft && !isPlayerRight)
+        {
             m_IsFacingPlayer = true;
         }
         else
         {
             m_IsFacingPlayer = false;
-            if (!m_IsPatrolling)
-            {
-                StartCoroutine(Patrol());
-            }
         }
-    }
 
-    IEnumerator Patrol()
-    {
-        m_IsPatrolling = true;
+       
 
-        while (Vector2.Distance(transform.position, m_PatrolTarget) > 0.1f)
-        {
-            var direction = (m_PatrolTarget - (Vector2)transform.position).normalized;
+        if (distanceToPlayer < m_aggroRange)
+        { 
+            m_IsPatrolling = false;
+            if (!m_IsFacingPlayer)
+            {
+                Flip();
+                m_IsFacingPlayer = true;
+
+            }
+
+            var direction = (m_Player.position - transform.position).normalized;
             m_Rigidbody.velocity = new Vector2(direction.x * m_Speed, m_Rigidbody.velocity.y);
             anim.SetBool("Move", true);
-
-            yield return null;
+          
         }
+        else
+        {
 
-        m_Rigidbody.velocity = Vector2.zero;
-        Flip();
-
-        yield return new WaitForSeconds(0.5f);
-
-        m_PatrolTarget = m_FacingLeft ? m_OriginalPosition - new Vector2(m_PatrolDistance, 0f) : m_OriginalPosition + new Vector2(m_PatrolDistance, 0f);
-        m_IsPatrolling = false;
+            Patrol();    
+        }
     }
 
-    // void Flip()
-    // {
-    //     if (m_IsFacingPlayer)
-    //     {
-    //         m_FacingLeft = !m_FacingLeft;
-    //     }
-    //     transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-    // }
-
-        void Flip()
+    void Patrol()
     {
-        // if (m_IsFacingPlayer)
-        // {
-        //     m_FacingLeft = !m_FacingLeft;
-        // }
+        if(Vector2.Distance(transform.position, m_PatrolTarget) <= 0.1f)
+        {
+            m_PatrolTarget = !m_FacingLeft ? m_OriginalPosition - new Vector2(m_PatrolDistance, 0f) : m_OriginalPosition + new Vector2(m_PatrolDistance, 0f);
+        }
+
+        var isTargetRight = m_PatrolTarget.x - transform.position.x > 0;
+
+        if(isTargetRight && m_FacingLeft)
+        {
+            Flip();
+        }
+        else if(!isTargetRight && !m_FacingLeft)
+        {
+            Flip();
+        }
+
+        var direction = (m_PatrolTarget - (Vector2)transform.position).normalized;
+        m_Rigidbody.velocity = new Vector2(direction.x * m_Speed, m_Rigidbody.velocity.y);
+        anim.SetBool("Move", true);        
+    }
+
+
+
+   
+        void Flip()
+        {
         if(m_FacingLeft)
         {
             transform.localScale = Vector3.one;
              m_FacingLeft = false;
 
         }
-      else {
+        else {
             m_FacingLeft = true;
             transform.localScale = new Vector3(-1, 1, 1);
-       }
+        }
     }  
 }
