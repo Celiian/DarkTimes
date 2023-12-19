@@ -143,7 +143,7 @@ GameObject:
   m_IsActive: 1
 --- !u!95 &350842987
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -160,7 +160,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &350842988
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -263,7 +264,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &529683228
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -280,7 +281,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &529683229
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -532,7 +534,7 @@ BoxCollider2D:
   m_EdgeRadius: 0
 --- !u!95 &931873728
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -549,7 +551,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1437871998
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,8 +650,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Speed: 1.5
   m_Rigidbody: {fileID: 1437872002}
+  m_PatrolEnabled: 0
+  m_RandomMovements: 1
+  m_RandomMovementsDistance: 5
   m_Player: {fileID: 931873725}
-  m_aggroRange: 5
+  m_aggroRange: 0
   m_FacingLeft: 0
   anim: {fileID: 529683228}
   animAttack: {fileID: 529683228}
@@ -836,7 +842,7 @@ GameObject:
   m_IsActive: 1
 --- !u!95 &2066934670
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -853,7 +859,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &2066934671
 SpriteRenderer:
   m_ObjectHideFlags: 0
