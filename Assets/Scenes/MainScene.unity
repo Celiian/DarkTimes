@@ -638,9 +638,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Speed: 2
   m_Rigidbody: {fileID: 1437872002}
-  m_PlayerLayer:
-    serializedVersion: 2
-    m_Bits: 8
+  m_Player: {fileID: 931873725}
+  m_DetectionRange: 5
   m_FacingLeft: 0
   anim: {fileID: 529683228}
 --- !u!1 &1715038740
