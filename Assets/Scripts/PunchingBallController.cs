@@ -11,28 +11,45 @@ public class PunchingBallController : MonoBehaviour
 
     private bool _attacked = false;
     private float _attackDirection;
-    private float _attackStrengh;
+    private float _attackStrength;
+    
 
-    public void takeHit(float attackDirection, float attackStrenght)
+    public void takeHit(float attackDirection, float attackStrength, Vector2 attackSpeed)
     {
         _attackDirection = attackDirection;
-        _attackStrengh = attackStrenght;
+        _attackStrength = attackStrength;
         _attacked = true;
-        
+
+        ApplyHit(m_rigidbody, attackSpeed);
     }
 
-  
-    void Update()
+
+    void ApplyHit(Rigidbody2D rb, Vector2 attackSpeed)
     {
         if (_attacked)
         {
             _attacked = false;
 
-            float forceMultiplier = _attackStrengh / m_rigidbody.mass;
-            Vector2 attackForce = new Vector2(_attackDirection * forceMultiplier, m_rigidbody.velocity.y);
+            Vector2 force = CalculateImpulseForce(_attackStrength, attackSpeed, rb.mass);
 
-            m_rigidbody.AddForce(attackForce, ForceMode2D.Impulse);
+            force.x = Mathf.Abs(force.x) * _attackDirection;
+
+            m_rigidbody.AddForce(force, ForceMode2D.Impulse);
+        }
+    }
+
+    Vector2 CalculateImpulseForce(float strength, Vector2 attackSpeed, float mass)
+    {
+
+        if(attackSpeed.x == 0)
+        {
+            attackSpeed.x = 1;
         }
 
+        float deltaVx = (strength * attackSpeed.x) / mass;
+        float deltaVy = deltaVx / (10 * mass);
+        return new Vector2(deltaVx, deltaVy);
     }
+
+
 }

@@ -156,7 +156,7 @@ public class PlayerActionsController : MonoBehaviour
             if (collider.CompareTag("Enemy"))
             {
 
-                var controller = collider.GetComponent<EnemyController>();
+                var controller = collider.GetComponent<PunchingBallController>();
 
                 var attackDirection = _facingLeft ? -1 : 1;
 
@@ -164,7 +164,7 @@ public class PlayerActionsController : MonoBehaviour
 
                 var attackStrength = (_spearMode ? m_SpearAttackStrengh : m_SwordAttackStrengh) * (currentVelocity.x > 0 ? currentVelocity.x / 4 : 1);
 
-                controller.takeHit(attackDirection, attackStrength);
+                controller.takeHit(attackDirection, attackStrength, currentVelocity);
             }
         }
 
