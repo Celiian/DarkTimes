@@ -4,11 +4,9 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField]
-    private Text countdownText;
-
-    [SerializeField]
-    private float countdownTime;
+    [SerializeField] private Text countdownText;
+    [SerializeField] private float countdownTime;
+    [SerializeField] private GameObject m_PlayerController;
 
     private Coroutine countdownCoroutine;
     private bool _accelerate;
@@ -31,6 +29,12 @@ public class GameController : MonoBehaviour
             {
                 countdownTime -= 0.01f;
             }
+
+            if(countdownTime < 0)
+            {
+                countdownTime = 0;
+            }
+
             int minutes = Mathf.FloorToInt(countdownTime / 60);
             int seconds = Mathf.FloorToInt(countdownTime % 60);
             int milliseconds = Mathf.FloorToInt((countdownTime * 100) % 100);
@@ -40,6 +44,11 @@ public class GameController : MonoBehaviour
 
 
             yield return new WaitForSeconds(0.01f);
+        }
+        if(countdownTime <= 0)
+        {
+            countdownTime = 0;
+            m_PlayerController.GetComponent<PlayerController>().die();
         }
 
         countdownText.text = "0:00.00";
@@ -73,6 +82,11 @@ public class GameController : MonoBehaviour
     {
         countdownTime -= decount;
 
+        if (countdownTime <= 0)
+        {
+            countdownTime = 0;
+            m_PlayerController.GetComponent<PlayerController>().die();
+        }
         int minutes = Mathf.FloorToInt(countdownTime / 60);
         int seconds = Mathf.FloorToInt(countdownTime % 60);
         int milliseconds = Mathf.FloorToInt((countdownTime * 100) % 100);
