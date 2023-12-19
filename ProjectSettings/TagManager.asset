@@ -16,6 +16,10 @@ TagManager:
   - Ground
   - Enemy
   - Wall
+  - Cealing
+  - 
+  - DecoFront
+  - DecoBack
   - 
   - 
   - 
@@ -34,12 +38,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Background
   m_SortingLayers:
   - name: Default
     uniqueID: 0
