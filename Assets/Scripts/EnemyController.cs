@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour
     private Vector2 m_OriginalPosition;
     private Vector2 m_PatrolTarget;
 
-    private bool m_IsFacingPlayer = false;
+    // private bool m_IsFacingPlayer = false;
     private Vector2 _RandomLocation = Vector2.zero;
 
     private System.Random random = new System.Random();
@@ -159,11 +159,11 @@ public class EnemyController : MonoBehaviour
     {
         if (!m_FacingLeft && isPlayerRight || m_FacingLeft && !isPlayerRight)
         {
-            m_IsFacingPlayer = true;
+            //m_IsFacingPlayer = true;
         }
         else
         {
-            m_IsFacingPlayer = false;
+           // m_IsFacingPlayer = false;
         }
     }
 

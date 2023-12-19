@@ -990,7 +990,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1747727321}
-  - component: {fileID: 1747727320}
+  - component: {fileID: 1747727323}
+  - component: {fileID: 1747727324}
   - component: {fileID: 1747727319}
   - component: {fileID: 1747727322}
   m_Layer: 3
@@ -1021,37 +1022,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1747727320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1747727317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07cf2f87858f344dda496ccde109da95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_speed: 5
-  m_jumpForce: 8
-  m_playerHeight: 0.6
-  m_rigidbody: {fileID: 1747727319}
-  m_groundLayer:
-    serializedVersion: 2
-    m_Bits: 192
-  m_enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  m_animSpear: {fileID: 545783986}
-  m_animSword: {fileID: 1363443521}
-  m_doubleJump: 1
-  m_facingLeft: 0
-  m_spearAttackStrengh: 10
-  m_swordAttackStrengh: 7
-  m_gameController: {fileID: 141441748}
-  m_SwordAttackCollider: {fileID: 1949827265}
-  m_SpearAttackCollider: {fileID: 1589460255}
 --- !u!4 &1747727321
 Transform:
   m_ObjectHideFlags: 0
@@ -1087,6 +1057,60 @@ CapsuleCollider2D:
   m_Offset: {x: 0.09, y: -0.1}
   m_Size: {x: 0.4, y: 0.8}
   m_Direction: 0
+--- !u!114 &1747727323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747727317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23abab56dbd49450daffe5fb9bba549b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Speed: 5
+  m_JumpForce: 8
+  m_PlayerHeight: 0.6
+  m_DoubleJump: 1
+  m_FacingLeft: 0
+  m_Rigidbody: {fileID: 1747727319}
+  m_GroundLayer:
+    serializedVersion: 2
+    m_Bits: 192
+  m_AnimSpear: {fileID: 545783986}
+  m_AnimSword: {fileID: 1363443521}
+  m_GameController: {fileID: 141441748}
+  m_Player: {fileID: 1747727317}
+--- !u!114 &1747727324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747727317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07cf2f87858f344dda496ccde109da95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerHeight: 0.6
+  m_Rigidbody: {fileID: 1747727319}
+  m_GroundLayer:
+    serializedVersion: 2
+    m_Bits: 192
+  m_EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  m_AnimSpear: {fileID: 545783986}
+  m_AnimSword: {fileID: 1363443521}
+  m_FacingLeft: 0
+  m_SpearAttackStrengh: 10
+  m_SwordAttackStrengh: 6
+  m_GameController: {fileID: 141441748}
+  m_Player: {fileID: 1747727317}
+  m_SwordAttackCollider: {fileID: 1949827265}
+  m_SpearAttackCollider: {fileID: 1589460255}
 --- !u!1 &1849421431
 GameObject:
   m_ObjectHideFlags: 0
