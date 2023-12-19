@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        countdownCoroutine = StartCoroutine(StartCountdown());
+        //countdownCoroutine = StartCoroutine(StartCountdown());
     }
 
     private IEnumerator StartCountdown()
@@ -64,15 +64,15 @@ public class GameController : MonoBehaviour
         {
             if (countdownCoroutine == null)
             {
-                countdownCoroutine = StartCoroutine(StartCountdown());
+                //countdownCoroutine = StartCoroutine(StartCountdown());
             }
         }
         else
         {
             if (countdownCoroutine != null)
             {
-                StopCoroutine(countdownCoroutine);
-                countdownCoroutine = null;
+                //StopCoroutine(countdownCoroutine);
+                //countdownCoroutine = null;
             }
         }
     }
@@ -85,7 +85,7 @@ public class GameController : MonoBehaviour
         if (countdownTime <= 0)
         {
             countdownTime = 0;
-            m_PlayerController.GetComponent<PlayerActionsController>().die();
+           // m_PlayerController.GetComponent<PlayerActionsController>().die();
         }
         int minutes = Mathf.FloorToInt(countdownTime / 60);
         int seconds = Mathf.FloorToInt(countdownTime % 60);
