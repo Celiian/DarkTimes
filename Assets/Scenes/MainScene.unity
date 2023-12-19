@@ -508,7 +508,8 @@ MonoBehaviour:
   m_animSword: {fileID: 350842987}
   m_doubleJump: 1
   m_facingLeft: 0
-  m_attackStrengh: 3
+  m_spearAttackStrengh: 8
+  m_swordAttackStrengh: 5
 --- !u!4 &931873725
 Transform:
   m_ObjectHideFlags: 0

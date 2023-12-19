@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float m_speed; // 5
-    [SerializeField] private float m_jumpForce; // 8
-    [SerializeField] private float m_attackRange; // 1.3
-    [SerializeField] private float m_playerHeight; // 0.58
+    [SerializeField] private float m_speed;
+    [SerializeField] private float m_jumpForce;
+    [SerializeField] private float m_attackRange;
+    [SerializeField] private float m_playerHeight;
     [SerializeField] private Rigidbody2D m_rigidbody;
     [SerializeField] private LayerMask m_groundLayer;
     [SerializeField] private LayerMask m_enemyLayer;
@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator m_animSword;
     [SerializeField] private bool m_doubleJump;
     [SerializeField] private bool m_facingLeft;
-    [SerializeField] private float m_attackStrengh;
+    [SerializeField] private float m_spearAttackStrengh;
+    [SerializeField] private float m_swordAttackStrengh;
 
     private bool isGrounded = false;
     private bool jump = false;
@@ -104,7 +105,10 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetTrigger("Attack");
             Invoke(nameof(HandleAttacking), 0.5f);
-            Invoke(nameof(HandleAttacking), 1);
+            if (!spearMode)
+            {
+                Invoke(nameof(HandleAttacking), 1);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -175,7 +179,7 @@ public class PlayerController : MonoBehaviour
 
                 var controller = hit.collider.GetComponent<PunchingBallController>();
 
-                controller.takeHit(rayDirection.x, m_attackStrengh);
+                controller.takeHit(rayDirection.x, spearMode ? m_spearAttackStrengh : m_swordAttackStrengh);
             }
 
         }
