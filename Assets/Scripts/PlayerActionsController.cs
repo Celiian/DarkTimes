@@ -186,7 +186,7 @@ public class PlayerActionsController : MonoBehaviour
             if (collider.CompareTag("Enemy"))
             {
 
-                var controller = collider.GetComponent<EnemyActionsController>();
+                var controller = collider.GetComponent<EnemyHitController>();
 
                 var attackDirection = _facingLeft ? -1 : 1;
 
