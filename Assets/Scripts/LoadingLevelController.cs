@@ -6,34 +6,26 @@ using UnityEngine.SceneManagement;
 
 public class LoadingLevelController : MonoBehaviour
 {
-    [SerializeField]
-    private BoxCollider2D doorTrigger;
-    [SerializeField] 
-    private LayerMask m_PlayerLayer;
+    FadeInOut fade;
     public string LevelToLoad;
-    
-    void LoadLevel()
+
+    void Start()
     {
-        Collider2D[] colliders = new Collider2D[100];
-
-        ContactFilter2D contactFilter = new ContactFilter2D();
-        contactFilter.SetLayerMask(m_PlayerLayer);
-
-        int numColliders = doorTrigger.OverlapCollider(contactFilter, colliders);
-
-        for (int i = 0; i < numColliders; i++)
-        {
-            Collider2D collider = colliders[i];
-            if (collider.CompareTag("Joueur"))
-            {
-                SceneManager.LoadScene(LevelToLoad);
-                break;
-            }
-        }
+        fade = FindObjectOfType<FadeInOut>();
     }
 
-    void Update()
+    public IEnumerator ChangeScene()
     {
-        LoadLevel();
+        fade.FadeIn();
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(LevelToLoad);
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Joueur")
+        {
+            StartCoroutine(ChangeScene());
+        }
     }
 }

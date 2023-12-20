@@ -5,9 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    public void PlayGame()
+
+    FadeInOut fade;
+
+    public void Start()
     {
+        fade = FindObjectOfType<FadeInOut>();
+    }
+    private IEnumerator PlayGame()
+    {
+        
+        fade.FadeIn();
+        yield return new WaitForSeconds(1);
         SceneManager.LoadSceneAsync(1);
+            
+ 
+    }
+
+    public void PressPlayGame()
+    {
+        StartCoroutine(PlayGame());
     }
 
     public void QuitGame()
