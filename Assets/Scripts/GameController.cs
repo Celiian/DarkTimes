@@ -10,10 +10,25 @@ public class GameController : MonoBehaviour
 
     private Coroutine countdownCoroutine;
     private bool _accelerate;
+    private GameManager _gameManager;
 
     private void Start()
     {
         countdownCoroutine = StartCoroutine(StartCountdown());
+
+        _gameManager = FindObjectOfType<GameManager>();
+
+
+        if(_gameManager == null)
+        {
+
+            var controller = new GameObject();
+
+            _gameManager = controller.AddComponent<GameManager>();
+
+            DontDestroyOnLoad(controller);
+        }
+      
     }
 
     private IEnumerator StartCountdown()
