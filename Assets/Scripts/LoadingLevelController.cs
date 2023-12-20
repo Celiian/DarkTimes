@@ -12,11 +12,8 @@ public class LoadingLevelController : MonoBehaviour
     private LayerMask m_PlayerLayer;
     public string LevelToLoad;
     
-    
-
     void LoadLevel()
     {
-
         Collider2D[] colliders = new Collider2D[100];
 
         ContactFilter2D contactFilter = new ContactFilter2D();
@@ -35,16 +32,10 @@ public class LoadingLevelController : MonoBehaviour
                 break;
             }
         }
-
-
-
-
-        
     }
 
     void Update()
     {
         LoadLevel();
-
     }
 }
