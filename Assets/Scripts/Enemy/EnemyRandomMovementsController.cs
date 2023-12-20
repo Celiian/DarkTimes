@@ -25,6 +25,11 @@ public class EnemyRandomMovementsController : MonoBehaviour
 
     void MoveRandom()
     {
+        if (_movements.getStunned() > 0)
+        {
+            return;
+        }
+
         if (_randomLocation != Vector2.zero)
         {
             _movements.MoveToLocation(_randomLocation, _movements.m_Speed);

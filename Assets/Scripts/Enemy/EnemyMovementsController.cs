@@ -16,6 +16,18 @@ public class EnemyMovementsController : MonoBehaviour
 
     public bool _purchasing = false;
 
+    private int _stunned = 0;
+
+    public void stun(float duration)
+    {
+        _stunned = (int)duration * 60;
+    }
+
+    public float getStunned()
+    {
+        return _stunned;
+    }
+
     public void Flip()
     {
         if (m_FacingLeft)
@@ -35,6 +47,10 @@ public class EnemyMovementsController : MonoBehaviour
     {
         m_Anim.SetBool("Move", Mathf.Abs(m_Rigidbody.velocity.x) > 0.1f);
 
+        if(_stunned > 0)
+        {
+            _stunned -= 1;
+        }
     }
 
     public void MoveToLocation(Vector2 targetPosition, float speed)

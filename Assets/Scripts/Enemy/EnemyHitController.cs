@@ -47,7 +47,7 @@ public class EnemyHitController : MonoBehaviour
         m_HitPoint -= 1;
         _movements.m_Anim.SetTrigger("Hit");
 
-        gameObject.GetComponent<EnemyMovementController>().stun(m_StunTime);
+        gameObject.GetComponent<EnemyMovementsController>().stun(m_StunTime);
 
         Vector2 force = CalculateImpulseForce(_attackStrength, rb.mass);
 

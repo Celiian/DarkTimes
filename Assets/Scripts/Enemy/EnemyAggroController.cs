@@ -23,6 +23,10 @@ public class EnemyAggroController : MonoBehaviour
 
     private void Update()
     {
+        if(_movements.getStunned() > 0)
+        {
+            return;
+        }
 
         var distanceToPlayer = Vector2.Distance(transform.position, m_Player.position);
 
@@ -55,26 +59,32 @@ public class EnemyAggroController : MonoBehaviour
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, m_AggroRange);
 
-        var playerFound = false;
+       
 
+        var playerFound = false;
         foreach (var hit in hits)
         {
             if (hit.collider != null && hit.collider.CompareTag("Joueur"))
             {
                 playerFound = true;
 
+
                 _movements._purchasing = true;
-                if (distanceToPlayer > 1.2)
+                if (distanceToPlayer > 1.2f)
                 {
                     _movements.MoveToLocation(m_Player.position, speed);
                 }
-                break;
+                return;
             }
 
         }
         if (!playerFound && distanceXToPlayer > m_AggroRange)
         {
             _movements._purchasing = false;
+        }
+        else
+        {
+            _movements.MoveToLocation(m_Player.position, speed);
         }
     }
 }

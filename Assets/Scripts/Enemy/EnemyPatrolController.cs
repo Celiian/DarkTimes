@@ -27,6 +27,11 @@ public class EnemyPatrolController : MonoBehaviour
 
     void Patrol()
     {
+        if (_movements.getStunned() > 0)
+        {
+            return;
+        }
+
         if (m_PatrolEnabled && !_movements._purchasing) {
             if (Mathf.Abs(Vector2.Distance(transform.position, _patrolTarget)) <= 0.1f)
             {
