@@ -724,6 +724,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 58457426148620870, guid: 2ab7f92ec64274fbfb83251bceb8438e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3203638759094419798, guid: 2ab7f92ec64274fbfb83251bceb8438e, type: 3}
       propertyPath: m_Name
       value: AssassinEnemy
@@ -736,6 +740,10 @@ PrefabInstance:
       propertyPath: m_Player
       value: 
       objectReference: {fileID: 2566829934187966971}
+    - target: {fileID: 5416945422492013092, guid: 2ab7f92ec64274fbfb83251bceb8438e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6904128502058546325, guid: 2ab7f92ec64274fbfb83251bceb8438e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.49
