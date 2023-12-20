@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Joueur
   - Enemy
+  - ChangeScene
   layers:
   - Default
   - TransparentFX
@@ -20,25 +21,25 @@ TagManager:
   - Attack
   - DecoFront
   - DecoBack
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  - Background
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
