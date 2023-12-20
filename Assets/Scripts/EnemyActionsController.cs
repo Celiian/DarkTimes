@@ -47,6 +47,9 @@ public class EnemyActionsController : MonoBehaviour
 
     public void takeHit(float attackDirection, float attackStrength)
     {
+
+
+
         if(m_HitPoint == 0)
         {
             return;
