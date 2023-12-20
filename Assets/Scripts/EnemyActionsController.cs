@@ -7,6 +7,8 @@ public class EnemyActionsController : MonoBehaviour
     // [SerializeField] private Animator anim;
     [SerializeField] private float m_Strengh;
 
+    [SerializeField] public int m_HitPoint;
+
     [SerializeField] private float m_AttackCoolDown;
 
     [SerializeField] private Rigidbody2D m_Rigidbody;
@@ -16,10 +18,9 @@ public class EnemyActionsController : MonoBehaviour
     [SerializeField] private GameObject m_GameController;
 
 
-
     private bool _attacked = false;
     private bool _attackInCoolDown = false;
-
+    
     private float _attackDirection;
     private float _attackStrength;
     private Animator _anim;
@@ -41,6 +42,11 @@ public class EnemyActionsController : MonoBehaviour
 
     public void takeHit(float attackDirection, float attackStrength)
     {
+        if(m_HitPoint == 0)
+        {
+            return;
+        }
+
         _attackDirection = attackDirection;
         _attackStrength = attackStrength;
         _attacked = true;
@@ -51,20 +57,26 @@ public class EnemyActionsController : MonoBehaviour
 
     void ApplyHit(Rigidbody2D rb)
     {
-        if (_attacked)
+
+        m_HitPoint -= 1;
+        _anim.SetTrigger("Hit");
+
+        m_Self.GetComponent<EnemyMovementController>().stun(1.5f);
+
+        _attacked = false;
+
+        Vector2 force = CalculateImpulseForce(_attackStrength, rb.mass);
+
+        force.x = Mathf.Abs(force.x) * _attackDirection;
+
+        m_Rigidbody.AddForce(force, ForceMode2D.Impulse);
+
+        if(m_HitPoint == 0)
         {
-
-            m_Self.GetComponent<EnemyMovementController>().stun(1.5f);
-
-            _attacked = false;
-
-            Vector2 force = CalculateImpulseForce(_attackStrength, rb.mass);
-
-            force.x = Mathf.Abs(force.x) * _attackDirection;
-
-            m_Rigidbody.AddForce(force, ForceMode2D.Impulse);
+            _anim.SetTrigger("Death");
         }
     }
+    
 
     Vector2 CalculateImpulseForce(float strength, float mass)
     {
@@ -79,6 +91,11 @@ public class EnemyActionsController : MonoBehaviour
     private void Update()
     {
         if(_movementController._stunned > 0 || _gameController.m_countdownTime == 0)
+        {
+            return;
+        }
+
+        if(m_HitPoint == 0)
         {
             return;
         }

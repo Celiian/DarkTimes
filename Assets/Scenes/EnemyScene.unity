@@ -265,7 +265,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 481874416, guid: 40f94457fe5c04b8d86f73f7b9f68c02, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -273,7 +273,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &545783985
@@ -836,6 +836,7 @@ MonoBehaviour:
   m_Anim: {fileID: 529683228}
   m_Rigidbody: {fileID: 1437872002}
   m_Player: {fileID: 1747727321}
+  m_Self: {fileID: 1437871998}
   _isPlayerRight: 0
   _purchasing: 0
   _stunned: 0
@@ -852,6 +853,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Strengh: 2
+  m_HitPoint: 3
+  m_AttackCoolDown: 3
   m_Rigidbody: {fileID: 1437872002}
   m_Self: {fileID: 1437871998}
   m_GameController: {fileID: 141441748}

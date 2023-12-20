@@ -22,6 +22,8 @@ public class EnemyMovementController : MonoBehaviour
 
     [SerializeField] public Transform m_Player;
 
+    [SerializeField] private GameObject m_Self;
+
 
 
     private Vector2 m_OriginalPosition;
@@ -49,6 +51,10 @@ public class EnemyMovementController : MonoBehaviour
     
     void Update()
     {
+        if(m_Self.GetComponent<EnemyActionsController>().m_HitPoint == 0)
+        {
+            return;
+        }
 
         _isPlayerRight = m_Player.position.x -  transform.position.x >= 0.1f;
 
