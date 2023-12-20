@@ -35,11 +35,16 @@ public class EnemyMovementController : MonoBehaviour
 
     private Vector2 _RandomLocation = Vector2.zero;
 
-    public int _stunned = 0;
+    private int _stunned = 0;
 
     public void stun(float duration)
     {
         _stunned = (int) duration * 60;
+    }
+
+    public float getStunned()
+    {
+        return _stunned;
     }
 
     void Start()

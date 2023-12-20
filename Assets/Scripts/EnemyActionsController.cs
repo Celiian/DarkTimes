@@ -11,11 +11,16 @@ public class EnemyActionsController : MonoBehaviour
 
     [SerializeField] private float m_AttackCoolDown;
 
+    [SerializeField] private float m_TimeReward;
+
+    [SerializeField] private float m_StunTime;
+
     [SerializeField] private Rigidbody2D m_Rigidbody;
 
     [SerializeField] private GameObject m_Self;
 
     [SerializeField] private GameObject m_GameController;
+
 
 
     private bool _attacked = false;
@@ -61,7 +66,7 @@ public class EnemyActionsController : MonoBehaviour
         m_HitPoint -= 1;
         _anim.SetTrigger("Hit");
 
-        m_Self.GetComponent<EnemyMovementController>().stun(1.5f);
+        m_Self.GetComponent<EnemyMovementController>().stun(m_StunTime);
 
         _attacked = false;
 
@@ -74,7 +79,7 @@ public class EnemyActionsController : MonoBehaviour
         if(m_HitPoint == 0)
         {
             _anim.SetTrigger("Death");
-            _gameController.addTime(60);
+            _gameController.addTime(m_TimeReward);
         }
     }
     
@@ -91,7 +96,17 @@ public class EnemyActionsController : MonoBehaviour
 
     private void Update()
     {
-        if(_movementController._stunned > 0 || _gameController.m_countdownTime == 0)
+
+        AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
+
+        var dead = stateInfo.IsName("Dead");
+
+        if (dead)
+        {
+            Destroy(m_Self);
+        }
+
+        if (_movementController.getStunned() > 0 || _gameController.m_countdownTime == 0)
         {
             return;
         }
