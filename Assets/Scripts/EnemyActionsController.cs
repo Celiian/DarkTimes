@@ -74,6 +74,7 @@ public class EnemyActionsController : MonoBehaviour
         if(m_HitPoint == 0)
         {
             _anim.SetTrigger("Death");
+            _gameController.addTime(60);
         }
     }
     

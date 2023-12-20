@@ -95,6 +95,18 @@ public class GameController : MonoBehaviour
         countdownText.text = string.Format("{0}:{1:00}.{2:00}", minutes, seconds, milliseconds);
     }
 
+    public void addTime(float decount)
+    {
+        m_countdownTime += decount;
+
+        int minutes = Mathf.FloorToInt(m_countdownTime / 60);
+        int seconds = Mathf.FloorToInt(m_countdownTime % 60);
+        int milliseconds = Mathf.FloorToInt((m_countdownTime * 100) % 100);
+
+
+        countdownText.text = string.Format("{0}:{1:00}.{2:00}", minutes, seconds, milliseconds);
+    }
+
     public void AccelerateTimer(bool accelerate)
     {
         _accelerate = accelerate;
