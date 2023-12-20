@@ -153,8 +153,12 @@ public class PlayerMovementController : MonoBehaviour
         var speedMultiplier = _sprint ? 1.7f : 1;
         var speed = m_Speed * speedMultiplier;
 
-        m_Rigidbody.velocity = new Vector2(horizontalInput * speed, m_Rigidbody.velocity.y);
+        if (horizontalInput != 0)
+        {
 
+            m_Rigidbody.velocity = new Vector2(horizontalInput * speed, m_Rigidbody.velocity.y);
+
+        }
         if (horizontalInput > 0.01f)
         {
             m_FacingLeft = false;

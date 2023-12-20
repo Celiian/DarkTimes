@@ -29,9 +29,51 @@ public class PlayerActionsController : MonoBehaviour
     private Animator _anim;
     private GameController _gameController;
 
+    private bool _attacked = false;
+    private float _attackDirection;
+    private float _attackStrength;
+
 
     private string _groundMode = "Grounded";
     private string _attackMode = "Attack";
+
+    public void takeHit(float attackDirection, float attackStrength)
+    {
+        _attackDirection = attackDirection;
+        _attackStrength = attackStrength;
+        _attacked = true;
+
+        ApplyHit(m_Rigidbody);
+    }
+
+
+    void ApplyHit(Rigidbody2D rb)
+    {
+        if (_attacked)
+        {
+
+            _attacked = false;
+
+            _gameController.DecountTimer(5);
+
+            Vector2 force = CalculateImpulseForce(_attackStrength, rb.mass);
+
+            force.x = Mathf.Abs(force.x) * _attackDirection;
+
+            m_Rigidbody.AddForce(force, ForceMode2D.Impulse);
+
+
+        }
+    }
+
+    Vector2 CalculateImpulseForce(float strength, float mass)
+    {
+
+
+        float deltaVx = strength / mass;
+        float deltaVy = 0;
+        return new Vector2(deltaVx, deltaVy);
+    }
 
 
     private void Start()
@@ -96,25 +138,13 @@ public class PlayerActionsController : MonoBehaviour
             _anim.SetTrigger("Attack");
             if (_anim.GetBool("Move"))
             {
-        
-                if (_spearMode) {
-                    Invoke(nameof(dash), 0.3f);
-                }
-                else
-                {
-                    Invoke(nameof(dash), 0.2f);
-                }
-                
+                Invoke(nameof(dash), 0.2f);
             }
             
-            Invoke(nameof(HandleAttacking), 0.5f);
+            Invoke(nameof(HandleAttacking), 0.25f);
             if (!_spearMode)
             {
-                if (_anim.GetBool("Move"))
-                {
-                    Invoke(nameof(dash), 0.4f);
-                }
-                Invoke(nameof(HandleAttacking), 1);
+                Invoke(nameof(HandleAttacking), 0.5f);
             }
         }
 
@@ -156,13 +186,13 @@ public class PlayerActionsController : MonoBehaviour
             if (collider.CompareTag("Enemy"))
             {
 
-                var controller = collider.GetComponent<EnemyController>();
+                var controller = collider.GetComponent<EnemyActionsController>();
 
                 var attackDirection = _facingLeft ? -1 : 1;
 
                 Vector2 currentVelocity = m_Rigidbody.velocity;
 
-                var attackStrength = (_spearMode ? m_SpearAttackStrengh : m_SwordAttackStrengh) * (currentVelocity.x > 0 ? currentVelocity.x / 4 : 1);
+                var attackStrength = (_spearMode ? m_SpearAttackStrengh : m_SwordAttackStrengh) * (currentVelocity.x > 0 ? currentVelocity.x / 8 : 1);
 
                 controller.takeHit(attackDirection, attackStrength);
             }

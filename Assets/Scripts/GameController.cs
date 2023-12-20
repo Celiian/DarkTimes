@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private Text countdownText;
-    [SerializeField] private float countdownTime;
+    [SerializeField] public float m_countdownTime;
     [SerializeField] private GameObject m_PlayerController;
 
     private Coroutine countdownCoroutine;
@@ -19,25 +19,25 @@ public class GameController : MonoBehaviour
     private IEnumerator StartCountdown()
     {
 
-        while (countdownTime > 0)
+        while (m_countdownTime > 0)
         {
             if (_accelerate)
             {
-                countdownTime -= 0.015f;
+                m_countdownTime -= 0.015f;
             }
             else
             {
-                countdownTime -= 0.01f;
+                m_countdownTime -= 0.01f;
             }
 
-            if(countdownTime < 0)
+            if(m_countdownTime < 0)
             {
-                countdownTime = 0;
+                m_countdownTime = 0;
             }
 
-            int minutes = Mathf.FloorToInt(countdownTime / 60);
-            int seconds = Mathf.FloorToInt(countdownTime % 60);
-            int milliseconds = Mathf.FloorToInt((countdownTime * 100) % 100);
+            int minutes = Mathf.FloorToInt(m_countdownTime / 60);
+            int seconds = Mathf.FloorToInt(m_countdownTime % 60);
+            int milliseconds = Mathf.FloorToInt((m_countdownTime * 100) % 100);
 
            
             countdownText.text = string.Format("{0}:{1:00}.{2:00}", minutes, seconds, milliseconds);
@@ -45,9 +45,9 @@ public class GameController : MonoBehaviour
 
             yield return new WaitForSeconds(0.01f);
         }
-        if(countdownTime <= 0)
+        if(m_countdownTime <= 0)
         {
-            countdownTime = 0;
+            m_countdownTime = 0;
             m_PlayerController.GetComponent<PlayerActionsController>().die();
         }
 
@@ -80,16 +80,28 @@ public class GameController : MonoBehaviour
 
     public void DecountTimer(float decount)
     {
-        countdownTime -= decount;
+        m_countdownTime -= decount;
 
-        if (countdownTime <= 0)
+        if (m_countdownTime <= 0)
         {
-            countdownTime = 0;
+            m_countdownTime = 0;
             m_PlayerController.GetComponent<PlayerActionsController>().die();
         }
-        int minutes = Mathf.FloorToInt(countdownTime / 60);
-        int seconds = Mathf.FloorToInt(countdownTime % 60);
-        int milliseconds = Mathf.FloorToInt((countdownTime * 100) % 100);
+        int minutes = Mathf.FloorToInt(m_countdownTime / 60);
+        int seconds = Mathf.FloorToInt(m_countdownTime % 60);
+        int milliseconds = Mathf.FloorToInt((m_countdownTime * 100) % 100);
+
+
+        countdownText.text = string.Format("{0}:{1:00}.{2:00}", minutes, seconds, milliseconds);
+    }
+
+    public void addTime(float decount)
+    {
+        m_countdownTime += decount;
+
+        int minutes = Mathf.FloorToInt(m_countdownTime / 60);
+        int seconds = Mathf.FloorToInt(m_countdownTime % 60);
+        int milliseconds = Mathf.FloorToInt((m_countdownTime * 100) % 100);
 
 
         countdownText.text = string.Format("{0}:{1:00}.{2:00}", minutes, seconds, milliseconds);
