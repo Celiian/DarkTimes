@@ -24,8 +24,6 @@ public class LoadingLevelController : MonoBehaviour
         for (int i = 0; i < numColliders; i++)
         {
             Collider2D collider = colliders[i];
-
-            Debug.Log(collider.tag);
             if (collider.CompareTag("Joueur"))
             {
                 SceneManager.LoadScene(LevelToLoad);

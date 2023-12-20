@@ -9,4 +9,10 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(1);
     }
+
+    public void QuitGame()
+    {
+        Debug.Log("quit game");
+        Application.Quit();
+    }
 }
