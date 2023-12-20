@@ -29,9 +29,51 @@ public class PlayerActionsController : MonoBehaviour
     private Animator _anim;
     private GameController _gameController;
 
+    private bool _attacked = false;
+    private float _attackDirection;
+    private float _attackStrength;
+
 
     private string _groundMode = "Grounded";
     private string _attackMode = "Attack";
+
+    public void takeHit(float attackDirection, float attackStrength)
+    {
+        _attackDirection = attackDirection;
+        _attackStrength = attackStrength;
+        _attacked = true;
+
+        ApplyHit(m_Rigidbody);
+    }
+
+
+    void ApplyHit(Rigidbody2D rb)
+    {
+        if (_attacked)
+        {
+
+            _attacked = false;
+
+            _gameController.DecountTimer(5);
+
+            Vector2 force = CalculateImpulseForce(_attackStrength, rb.mass);
+
+            force.x = Mathf.Abs(force.x) * _attackDirection;
+
+            m_Rigidbody.AddForce(force, ForceMode2D.Impulse);
+
+
+        }
+    }
+
+    Vector2 CalculateImpulseForce(float strength, float mass)
+    {
+
+
+        float deltaVx = strength / mass;
+        float deltaVy = 0;
+        return new Vector2(deltaVx, deltaVy);
+    }
 
 
     private void Start()
@@ -144,7 +186,7 @@ public class PlayerActionsController : MonoBehaviour
             if (collider.CompareTag("Enemy"))
             {
 
-                var controller = collider.GetComponent<EnemyController>();
+                var controller = collider.GetComponent<EnemyActionsController>();
 
                 var attackDirection = _facingLeft ? -1 : 1;
 
