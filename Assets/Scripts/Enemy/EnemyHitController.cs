@@ -74,7 +74,7 @@ public class EnemyHitController : MonoBehaviour
     {
         AnimatorStateInfo stateInfo = _movements.m_Anim.GetCurrentAnimatorStateInfo(0);
 
-        var dead = stateInfo.IsName("Dead");
+        var dead = stateInfo.IsName("DeadEnemy");
 
         if (dead)
         {
