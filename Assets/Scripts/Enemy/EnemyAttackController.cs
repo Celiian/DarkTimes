@@ -8,6 +8,7 @@ public class EnemyAttackController : MonoBehaviour
     [SerializeField] private float m_AttackCoolDown;
     [SerializeField] private float m_AttackRange;
     [SerializeField] private string m_AttackType;
+    [SerializeField] private float m_Timing;
 
 
     private bool _attacked = false;
@@ -69,7 +70,8 @@ public class EnemyAttackController : MonoBehaviour
 
                     var attackStrength = (m_Strengh) * velocity;
 
-                    controller.takeHit(attackDirection, attackStrength);
+                    controller.takeHit(attackDirection, attackStrength, m_Timing);
+
                     _attackInCoolDown = true;
                     Invoke(nameof(coolDown), m_AttackCoolDown);
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7d94db2857eb54722896a30a1765c655
+guid: 10850c2862af64e1ab103f7497919a5d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -75,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -87,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -99,13 +103,56 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attack 92x36_0
+      name: run 92x36_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 252
+        width: 92
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66fc54bcbe2124f81a576e47ac8019ca
+      internalID: -1094434198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: run 92x36_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 216
+        width: 92
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9108d4e30f0ca461eae85b51cc85fce6
+      internalID: 1222112351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: run 92x36_2
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3dcc116f11aaf40468ec8e26e25768bc
-      internalID: -1381041306
+      spriteID: 917251393ee7240729e997576d310f54
+      internalID: 2064163994
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack 92x36_1
+      name: run 92x36_3
       rect:
         serializedVersion: 2
         x: 0
@@ -140,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9e14a3963eeb4800976d63562be2966
-      internalID: -1714779066
+      spriteID: c49df3a1483284987bf7703941f8351c
+      internalID: 754877463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack 92x36_2
+      name: run 92x36_4
       rect:
         serializedVersion: 2
         x: 0
@@ -161,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb308a6fee7504660845b1f852b93c14
-      internalID: 767273495
+      spriteID: 287241459655e42ecbd38e3291eca543
+      internalID: -1023630346
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack 92x36_3
+      name: run 92x36_5
       rect:
         serializedVersion: 2
         x: 0
@@ -182,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 475422c404f8e4ff5a36b05b900918ec
-      internalID: -1762759756
+      spriteID: d0219c57d9751421685514b5d42e4535
+      internalID: 1003045495
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack 92x36_4
+      name: run 92x36_6
       rect:
         serializedVersion: 2
         x: 0
@@ -203,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14dbd07005cf245ce9ef34d5fbe11d3c
-      internalID: -1029156220
+      spriteID: 633e84200ffe74c66aba9813d01f1b7c
+      internalID: -1142233315
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack 92x36_5
+      name: run 92x36_7
       rect:
         serializedVersion: 2
         x: 0
@@ -224,8 +271,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 455f853c4f03d4576930438c21a9b981
-      internalID: 1572575292
+      spriteID: 3e4a748e899f0493dbb0ca678c3c7d99
+      internalID: 1009207454
       vertices: []
       indices: 
       edges: []
@@ -241,15 +288,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      attack 92x36_0: -1381041306
-      attack 92x36_1: -1714779066
-      attack 92x36_5: 1572575292
-      attack 92x36_2: 767273495
-      attack 92x36_3: -1762759756
-      attack 92x36_4: -1029156220
-  spritePackingTag: 
+      run 92x36_0: -1094434198
+      run 92x36_1: 1222112351
+      run 92x36_2: 2064163994
+      run 92x36_3: 754877463
+      run 92x36_4: -1023630346
+      run 92x36_5: 1003045495
+      run 92x36_6: -1142233315
+      run 92x36_7: 1009207454
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 40f94457fe5c04b8d86f73f7b9f68c02
+guid: a7e81744dba624beebadf563eb41cf5f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -47,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 36
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -75,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -87,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -99,19 +103,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle 92x36_0
+      name: blind attack 16x16_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 180
-        width: 92
-        height: 36
+        y: 48
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4d178281d9c443fb95398f698ee3d40
-      internalID: 481874416
+      spriteID: 88f112755d32d42fab7a327aa6bdfbea
+      internalID: 23387693
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle 92x36_1
+      name: blind attack 16x16_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 144
-        width: 92
-        height: 36
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 211ff25779d794a8a8639c178fbc66a0
-      internalID: -1324560561
+      spriteID: f439a432c465246358dc6f2a22a66c96
+      internalID: 2045601516
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle 92x36_2
+      name: blind attack 16x16_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 108
-        width: 92
-        height: 36
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,62 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49e28bc67de1743eebcfa03b4a7a7461
-      internalID: 1691656529
+      spriteID: 199e5187ebb8341d0afdecaefd459242
+      internalID: -1947088732
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle 92x36_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 72
-        width: 92
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c99cbb8279bff4be1b041975666f4e0b
-      internalID: -1838934320
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle 92x36_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 36
-        width: 92
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d9721c7dd44524417b3386c44fa90d6a
-      internalID: -247349117
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle 92x36_5
+      name: blind attack 16x16_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 92
-        height: 36
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb019f87b1f2c48d694f1a460ee81511
-      internalID: 1939775718
+      spriteID: 2600c57d52fef4c8cb87b8f015fffcee
+      internalID: 1502371442
       vertices: []
       indices: 
       edges: []
@@ -241,15 +204,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      idle 92x36_1: -1324560561
-      idle 92x36_0: 481874416
-      idle 92x36_4: -247349117
-      idle 92x36_2: 1691656529
-      idle 92x36_3: -1838934320
-      idle 92x36_5: 1939775718
-  spritePackingTag: 
+      blind attack 16x16_0: 23387693
+      blind attack 16x16_1: 2045601516
+      blind attack 16x16_2: -1947088732
+      blind attack 16x16_3: 1502371442
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

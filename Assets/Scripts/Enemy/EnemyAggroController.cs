@@ -70,7 +70,7 @@ public class EnemyAggroController : MonoBehaviour
 
 
                 _movements._purchasing = true;
-                if (distanceToPlayer > 1.2f)
+                if (distanceToPlayer > m_DistanceToStop)
                 {
                     _movements.MoveToLocation(m_Player.position, speed);
                 }
@@ -84,7 +84,10 @@ public class EnemyAggroController : MonoBehaviour
         }
         else
         {
-            _movements.MoveToLocation(m_Player.position, speed);
+            if (distanceToPlayer > m_DistanceToStop)
+            {
+                _movements.MoveToLocation(m_Player.position, speed);
+            }
         }
     }
 }
