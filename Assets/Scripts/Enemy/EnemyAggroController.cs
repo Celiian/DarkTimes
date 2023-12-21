@@ -30,6 +30,11 @@ public class EnemyAggroController : MonoBehaviour
             return;
         }
 
+        if (m_Player.GetComponent<PlayerActionsController>()._dead)
+        {
+            return;
+        }
+
         var distanceToPlayer = Vector2.Distance(transform.position, m_Player.position);
 
 
