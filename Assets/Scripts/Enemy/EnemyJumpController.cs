@@ -10,6 +10,7 @@ public class EnemyJumpController : MonoBehaviour
 
     [SerializeField] private LayerMask m_GroundLayer;
 
+    private System.Random random = new System.Random();
     private EnemyMovementsController _movements;
     private EnemyAggroController _aggro;
     private bool _isGrounded = false;
@@ -31,6 +32,17 @@ public class EnemyJumpController : MonoBehaviour
             return;
         }
 
+        if (_aggro.m_CheatPurchase)
+        {
+            int rand = random.Next(1, 100);
+
+            if(rand < 5)
+            {
+                _groundInFront = true;
+                return;
+            }
+
+        }
 
         var direction = _movements.m_FacingLeft ? Vector2.left : Vector2.right;
 
