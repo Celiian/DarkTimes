@@ -17,7 +17,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private GameObject m_Player;
 
 
-    private bool _isGrounded = false;
+    public bool _isGrounded = false;
     private bool _jump = false;
     private bool _jumpedTwice = false;
     private bool _attacking = false;
@@ -31,8 +31,10 @@ public class PlayerMovementController : MonoBehaviour
 
     private SpriteRenderer _swordRenderer;
     private SpriteRenderer _spearRenderer;
+    private PlayerActionsController _playerAction;
 
     private string _attackMode = "Attack";
+    private string _skillMode = "Skill";
     private string _groundMode = "Grounded";
     private string _sprintMode = "Move";
     private string _jumpMode = "Jump";
@@ -42,6 +44,7 @@ public class PlayerMovementController : MonoBehaviour
         _swordRenderer = m_AnimSword.GetComponent<SpriteRenderer>();
         _spearRenderer = m_AnimSpear.GetComponent<SpriteRenderer>();
         _gameController = m_GameController.GetComponent<GameController>();
+        _playerAction = gameObject.GetComponent<PlayerActionsController>();
 
     }
 
@@ -52,6 +55,9 @@ public class PlayerMovementController : MonoBehaviour
 
     void declarations()
     {
+        var skillAnim = _spearMode ? _playerAction.m_SpearAttackSkill : _playerAction.m_SwordAttackSkill;
+
+
         _anim = _spearMode ? m_AnimSpear : m_AnimSword;
         _horizontalInput = Input.GetAxis("Horizontal");
 
@@ -61,6 +67,8 @@ public class PlayerMovementController : MonoBehaviour
         _anim.SetBool(_groundMode, Physics2D.Raycast(transform.position, Vector2.down, m_PlayerHeight * 1.6f, m_GroundLayer));
         _attacking = stateInfo.IsName(_attackMode);
 
+        stateInfo = skillAnim.GetCurrentAnimatorStateInfo(0);
+        _attacking = stateInfo.IsName(_skillMode);
     }
 
     private void UpdateWeaponMode()
@@ -72,11 +80,19 @@ public class PlayerMovementController : MonoBehaviour
             
             _swordRenderer.enabled = false;
             _spearRenderer.enabled = true;
+
+            _swordRenderer.GetComponent<PlayerSoundEffect>().pause = true;
+            _spearRenderer.GetComponent<PlayerSoundEffect>().pause = false;
+
         }
         else
         {
             _swordRenderer.enabled = true;
             _spearRenderer.enabled = false;
+
+
+            _swordRenderer.GetComponent<PlayerSoundEffect>().pause = false;
+            _spearRenderer.GetComponent<PlayerSoundEffect>().pause = true;
         }
     }
 
@@ -100,6 +116,16 @@ public class PlayerMovementController : MonoBehaviour
 
                
                 _sprint = Input.GetKey(KeyCode.LeftShift);
+                if (_sprint)
+                {
+                    _anim.speed = 1.7f; 
+                }
+                else
+                {
+                    _anim.speed = 1.0f;
+
+                }
+
                 _gameController.AccelerateTimer(_sprint);
             }
 

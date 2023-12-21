@@ -58,6 +58,11 @@ public class EnemyRandomMovementsController : MonoBehaviour
 
     private void Update()
     {
+        if (_movements.wait)
+        {
+            return;
+        }
+
         if (m_RandomMovements && !_movements._purchasing)
         {
             MoveRandom();

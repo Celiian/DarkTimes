@@ -27,6 +27,10 @@ public class EnemyHitController : MonoBehaviour
 
     public void takeHit(float attackDirection, float attackStrength)
     {
+        if (_movements.wait)
+        {
+            return;
+        }
 
 
         if (m_HitPoint == 0)
@@ -66,7 +70,7 @@ public class EnemyHitController : MonoBehaviour
     Vector2 CalculateImpulseForce(float strength, float mass)
     {
         float deltaVx = strength / mass;
-        float deltaVy = 0;
+        float deltaVy = 2f;
         return new Vector2(deltaVx, deltaVy);
     }
 
@@ -74,7 +78,7 @@ public class EnemyHitController : MonoBehaviour
     {
         AnimatorStateInfo stateInfo = _movements.m_Anim.GetCurrentAnimatorStateInfo(0);
 
-        var dead = stateInfo.IsName("Dead");
+        var dead = stateInfo.IsName("DeadEnemy");
 
         if (dead)
         {
