@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
 
             DontDestroyOnLoad(controller);
         }
-      
+
     }
 
     private IEnumerator StartCountdown()
@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour
             int seconds = Mathf.FloorToInt(m_countdownTime % 60);
             int milliseconds = Mathf.FloorToInt((m_countdownTime * 100) % 100);
 
-           
+
             countdownText.text = string.Format("{0}:{1:00}.{2:00}", minutes, seconds, milliseconds);
 
 
@@ -79,15 +79,15 @@ public class GameController : MonoBehaviour
         {
             if (countdownCoroutine == null)
             {
-                countdownCoroutine = StartCoroutine(StartCountdown());
+                //countdownCoroutine = StartCoroutine(StartCountdown());
             }
         }
         else
         {
             if (countdownCoroutine != null)
             {
-                StopCoroutine(countdownCoroutine);
-                countdownCoroutine = null;
+                //StopCoroutine(countdownCoroutine);
+                //countdownCoroutine = null;
             }
         }
     }

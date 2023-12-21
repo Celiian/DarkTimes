@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Joueur
   - Enemy
+  - ChangeScene
   - Weapon
   layers:
   - Default
@@ -16,30 +17,30 @@ TagManager:
   - UI
   - Ground
   - Enemy
+  - Wall
+  - Cealing
   - Attack
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - DecoFront
+  - DecoBack
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
   m_SortingLayers:
   - name: Default
     uniqueID: 0
