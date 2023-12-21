@@ -1,10 +1,11 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private Text countdownText;
+    [SerializeField] private TMP_Text countdownText;
     [SerializeField] public float m_countdownTime;
     [SerializeField] private GameObject m_PlayerController;
 
