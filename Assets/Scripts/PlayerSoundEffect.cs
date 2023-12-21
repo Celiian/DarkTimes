@@ -8,6 +8,13 @@ public class PlayerSoundEffect : MonoBehaviour
     [SerializeField] AudioSource m_FootStep1;
     [SerializeField] AudioSource m_FootStep2;
 
+    [SerializeField] AudioSource m_SwordSlash1;
+
+
+    [SerializeField] AudioSource m_SwordSlash2;
+
+    [SerializeField] AudioSource m_SpearSlash1;
+
     public bool pause = false;
 
     void Start()
@@ -37,4 +44,27 @@ public class PlayerSoundEffect : MonoBehaviour
         }
     }
 
+    public void SwordSlashSound1()
+    {
+        if (!pause)
+        {
+            m_SwordSlash1.Play();
+        }
+    }
+
+    public void SwordSlashSound2()
+    {
+        if (!pause)
+        {
+            m_SwordSlash2.Play();
+        }
+    }
+
+    public void SpearSlashSound1()
+    {
+        if (!pause)
+        {
+            m_SpearSlash1.Play();
+        }
+    }
 }
