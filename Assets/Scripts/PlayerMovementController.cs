@@ -80,11 +80,19 @@ public class PlayerMovementController : MonoBehaviour
             
             _swordRenderer.enabled = false;
             _spearRenderer.enabled = true;
+
+            _swordRenderer.GetComponent<PlayerSoundEffect>().pause = true;
+            _spearRenderer.GetComponent<PlayerSoundEffect>().pause = false;
+
         }
         else
         {
             _swordRenderer.enabled = true;
             _spearRenderer.enabled = false;
+
+
+            _swordRenderer.GetComponent<PlayerSoundEffect>().pause = false;
+            _spearRenderer.GetComponent<PlayerSoundEffect>().pause = true;
         }
     }
 
@@ -108,6 +116,16 @@ public class PlayerMovementController : MonoBehaviour
 
                
                 _sprint = Input.GetKey(KeyCode.LeftShift);
+                if (_sprint)
+                {
+                    _anim.speed = 1.7f; 
+                }
+                else
+                {
+                    _anim.speed = 1.0f;
+
+                }
+
                 _gameController.AccelerateTimer(_sprint);
             }
 
