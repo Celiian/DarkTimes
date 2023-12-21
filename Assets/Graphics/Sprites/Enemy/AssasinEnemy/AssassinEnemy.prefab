@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 5821580821676473974}
   - component: {fileID: 1569408875256752249}
   - component: {fileID: 6797788943153263835}
+  - component: {fileID: 8876682782371619725}
   m_Layer: 7
   m_Name: AssassinEnemy
   m_TagString: Enemy
@@ -226,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AttacksCoolDown: 2
+  m_GameController: {fileID: 0}
 --- !u!114 &7917249876186080803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,21 +241,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Strengh: 7
-  m_AttackCoolDown: 12
-  m_AttackRange: 15
-  m_MinAttackRange: 10
-  m_AttackType: AttackCross
+  m_AttackCoolDown: 6
+  m_AttackRange: 9
+  m_MinAttackRange: 0
+  m_AttackType: AttackSweep
   m_Timing: 0.3
   m_Impulse: 1
   m_ImpulseTiming: 0
   m_Tp: 1
-  m_TpTiming: 0.1
+  m_TpTiming: 0.5
   m_TpDistance: -2
-  m_AdditionalEffect: 1
+  m_AdditionalEffect: 0
   m_AnimatorEffect: {fileID: 5959771699718294162}
   m_EffectTiming: 0.45
   m_Trigger: tp
-  m_KeepVelocity: 0
+  m_KeepVelocity: 1
   _attackInCoolDown: 0
 --- !u!114 &3369397234198995165
 MonoBehaviour:
@@ -269,9 +271,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Strengh: 5
   m_AttackCoolDown: 8
-  m_AttackRange: 10
-  m_MinAttackRange: 0
-  m_AttackType: Attack
+  m_AttackRange: 15
+  m_MinAttackRange: 8
+  m_AttackType: AttackCross
   m_Timing: 0.3
   m_Impulse: 0
   m_ImpulseTiming: 0
@@ -298,9 +300,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Strengh: 5
   m_AttackCoolDown: 2
-  m_AttackRange: 3
+  m_AttackRange: 1.5
   m_MinAttackRange: 0
-  m_AttackType: Attack2
+  m_AttackType: Attack
   m_Timing: 0.3
   m_Impulse: 0
   m_ImpulseTiming: 0
@@ -493,6 +495,51 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.1}
   m_Size: {x: 0.3, y: 0.7}
   m_Direction: 0
+--- !u!61 &8876682782371619725
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3006425472900558287}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 345aa1accf4b5458dae627e8fae97571, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.35, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!1 &6994191229073876762
 GameObject:
   m_ObjectHideFlags: 0
