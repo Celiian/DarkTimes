@@ -17,18 +17,20 @@ public class GameController : MonoBehaviour
     {
         countdownCoroutine = StartCoroutine(StartCountdown());
 
-        _gameManager = FindObjectOfType<GameManager>();
+        /*
+         _gameManager = FindObjectOfType<GameManager>();
 
 
-        if(_gameManager == null)
-        {
+                if(_gameManager == null)
+                {
 
-            var controller = new GameObject();
+                    var controller = new GameObject();
 
-            _gameManager = controller.AddComponent<GameManager>();
+                    _gameManager = controller.AddComponent<GameManager>();
 
-            DontDestroyOnLoad(controller);
-        }
+                    DontDestroyOnLoad(controller);
+                }
+        */
 
     }
 
