@@ -19,17 +19,6 @@ public class PlayerSoundEffect : MonoBehaviour
 
     public bool pause = false;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void WalkSound1()
     {
         if (!pause)
