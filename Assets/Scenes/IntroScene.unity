@@ -31398,6 +31398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1846715830}
   - component: {fileID: 1846715829}
+  - component: {fileID: 1846715831}
   m_Layer: 31
   m_Name: Background
   m_TagString: Untagged
@@ -31446,6 +31447,30 @@ Transform:
   - {fileID: 35576682}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!167 &1846715831
+AudioReverbZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846715828}
+  m_Enabled: 1
+  m_MinDistance: 300
+  m_MaxDistance: 300
+  m_ReverbPreset: 1
+  m_Room: -1000
+  m_RoomHF: -100
+  m_DecayTime: 1.49
+  m_DecayHFRatio: 0.83
+  m_Reflections: -2602
+  m_ReflectionsDelay: 0.007
+  m_Reverb: 200
+  m_ReverbDelay: 0.011
+  m_HFReference: 5000
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!1001 &1860057850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33147,6 +33172,10 @@ PrefabInstance:
       propertyPath: m_GameController
       value: 
       objectReference: {fileID: 1559696390}
+    - target: {fileID: 2832864976583521605, guid: 355c377a7fc794a428f60aa88299dafe, type: 3}
+      propertyPath: m_Volume
+      value: 0.005
+      objectReference: {fileID: 0}
     - target: {fileID: 4593279829269515635, guid: 355c377a7fc794a428f60aa88299dafe, type: 3}
       propertyPath: m_GameController
       value: 
@@ -33194,6 +33223,18 @@ PrefabInstance:
     - target: {fileID: 6213554399019292226, guid: 355c377a7fc794a428f60aa88299dafe, type: 3}
       propertyPath: m_Name
       value: Joueur
+      objectReference: {fileID: 0}
+    - target: {fileID: 7339959984994142332, guid: 355c377a7fc794a428f60aa88299dafe, type: 3}
+      propertyPath: m_Volume
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 7896123393631482882, guid: 355c377a7fc794a428f60aa88299dafe, type: 3}
+      propertyPath: m_Volume
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8931638315083708399, guid: 355c377a7fc794a428f60aa88299dafe, type: 3}
+      propertyPath: m_Volume
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
