@@ -82,15 +82,15 @@ public class GameController : MonoBehaviour
         {
             if (countdownCoroutine == null)
             {
-                //countdownCoroutine = StartCoroutine(StartCountdown());
+                countdownCoroutine = StartCoroutine(StartCountdown());
             }
         }
         else
         {
             if (countdownCoroutine != null)
             {
-                //StopCoroutine(countdownCoroutine);
-                //countdownCoroutine = null;
+                StopCoroutine(countdownCoroutine);
+                countdownCoroutine = null;
             }
         }
     }
