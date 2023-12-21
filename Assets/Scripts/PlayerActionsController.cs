@@ -19,6 +19,8 @@ public class PlayerActionsController : MonoBehaviour
     [SerializeField] private GameObject m_Player;
     [SerializeField] private BoxCollider2D m_SwordAttackCollider;
     [SerializeField] private BoxCollider2D m_SpearAttackCollider;
+    [SerializeField] public Animator m_SwordAttackSkill;
+    [SerializeField] public Animator m_SpearAttackSkill;
 
     private bool _isGrounded = false;
     private bool _attacking = false;
@@ -29,9 +31,66 @@ public class PlayerActionsController : MonoBehaviour
     private Animator _anim;
     private GameController _gameController;
 
+    private bool _attacked = false;
+    private float _attackDirection;
+    private float _attackStrength;
+
 
     private string _groundMode = "Grounded";
     private string _attackMode = "Attack";
+
+    public void takeHit(float attackDirection, float attackStrength, float timing)
+    {
+        _attackDirection = attackDirection;
+        _attackStrength = attackStrength;
+        _attacked = true;
+
+        Invoke(nameof(ApplyHit), timing);
+    }
+
+
+    void ApplyHit()
+    {
+        if (_attacked)
+        {
+            _attacked = false;
+
+            _gameController.DecountTimer(5);
+
+            Vector2 force = CalculateImpulseForce(_attackStrength, m_Rigidbody.mass);
+
+            force.x = Mathf.Abs(force.x) * _attackDirection;
+
+            m_Rigidbody.AddForce(force, ForceMode2D.Impulse);
+
+            HitRender(true);
+
+            Invoke("HitRenderDelayed", 0.3f);
+        }
+    }
+
+    private void HitRenderDelayed()
+    {
+        HitRender(false);
+    }
+
+
+    private void HitRender(bool render)
+    {
+        var spriteRenderer = _anim.GetComponent<SpriteRenderer>();
+        Material newMaterial = new Material(spriteRenderer.material);
+        newMaterial.color = render ? Color.red : Color.white;
+        spriteRenderer.material = newMaterial;
+    }
+
+    Vector2 CalculateImpulseForce(float strength, float mass)
+    {
+
+
+        float deltaVx = strength / mass;
+        float deltaVy = 0;
+        return new Vector2(deltaVx, deltaVy);
+    }
 
 
     private void Start()
@@ -96,25 +155,28 @@ public class PlayerActionsController : MonoBehaviour
             _anim.SetTrigger("Attack");
             if (_anim.GetBool("Move"))
             {
-        
-                if (_spearMode) {
-                    Invoke(nameof(dash), 0.3f);
-                }
-                else
-                {
-                    Invoke(nameof(dash), 0.2f);
-                }
-                
+                Invoke(nameof(dash), 0.2f);
             }
             
-            Invoke(nameof(HandleAttacking), 0.5f);
+            Invoke(nameof(HandleAttacking), 0.25f);
             if (!_spearMode)
             {
-                if (_anim.GetBool("Move"))
-                {
-                    Invoke(nameof(dash), 0.4f);
-                }
-                Invoke(nameof(HandleAttacking), 1);
+                Invoke(nameof(HandleAttacking), 0.5f);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            var skillAnim = _spearMode ? m_SpearAttackSkill : m_SwordAttackSkill;
+
+            _anim.SetTrigger("Attack");
+            skillAnim.SetTrigger("Skill");
+            Invoke(nameof(HandleAttacking), 0.25f);
+            Invoke(nameof(HandleAttacking), 0.30f);
+            if (!_spearMode)
+            {
+                Invoke(nameof(HandleAttacking), 0.40f);
+                Invoke(nameof(HandleAttacking), 0.45f);
             }
         }
 
@@ -156,13 +218,13 @@ public class PlayerActionsController : MonoBehaviour
             if (collider.CompareTag("Enemy"))
             {
 
-                var controller = collider.GetComponent<EnemyController>();
+                var controller = collider.GetComponent<EnemyHitController>();
 
                 var attackDirection = _facingLeft ? -1 : 1;
 
                 Vector2 currentVelocity = m_Rigidbody.velocity;
 
-                var attackStrength = (_spearMode ? m_SpearAttackStrengh : m_SwordAttackStrengh) * (currentVelocity.x > 0 ? currentVelocity.x / 4 : 1);
+                var attackStrength = (_spearMode ? m_SpearAttackStrengh : m_SwordAttackStrengh) * (currentVelocity.x > 0 ? currentVelocity.x / 8 : 1);
 
                 controller.takeHit(attackDirection, attackStrength);
             }
