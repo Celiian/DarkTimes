@@ -808,6 +808,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RandomMovements: 0
   m_RandomMovementsDistance: 3
+  m_GroundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _turn: 0
+  _blocked: 0
 --- !u!114 &312532941683166921
 MonoBehaviour:
   m_ObjectHideFlags: 0
