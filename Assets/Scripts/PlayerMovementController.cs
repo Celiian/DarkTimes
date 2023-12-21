@@ -135,16 +135,6 @@ public class PlayerMovementController : MonoBehaviour
         
     }
 
-    private void FixedUpdate()
-    {
-        if (_jump)
-        {
-            _gameController.DecountTimer(2);
-            var force = _jumpedTwice ? m_JumpForce * 1.1f : m_JumpForce;
-            _jump = false;
-            m_Rigidbody.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
-        }
-    }
 
    
     private void HandleGroundedInput(Animator anim)
@@ -215,6 +205,23 @@ public class PlayerMovementController : MonoBehaviour
                 anim.SetTrigger(jumpMode);
                 _jumpedTwice = true;
             }
+        }
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (_jump)
+        {
+            _gameController.DecountTimer(2);
+            var force = _jumpedTwice ? m_JumpForce * 1.3f : m_JumpForce;
+            _jump = false;
+
+            // Set Y velocity to 0 before adding jump force
+            m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, 0);
+
+            // Add the jump force
+            m_Rigidbody.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
         }
     }
 

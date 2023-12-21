@@ -7,6 +7,8 @@ public class EnemySoundEffect : MonoBehaviour
 
     [SerializeField] AudioSource m_EnemyFootStep1;
 
+    [SerializeField] AudioSource m_EnemyFootStep2;
+
     [SerializeField] AudioSource m_EnemyAttack1;
 
     [SerializeField] AudioSource m_EnemyHit;
@@ -21,6 +23,14 @@ public class EnemySoundEffect : MonoBehaviour
         if (!pause)
         {
             m_EnemyFootStep1.Play();
+        }
+    }
+
+    public void EnemyWalkSound2()
+    {
+        if (!pause)
+        {
+            m_EnemyFootStep2.Play();
         }
     }
 

@@ -49,6 +49,8 @@ public class EnemyRandomMovementsController : MonoBehaviour
 
                 randDistance -= m_RandomMovementsDistance;
 
+                Debug.Log(randDistance);
+
                 _randomLocation = new Vector2(transform.position.x + randDistance, transform.position.y);
             }
 
