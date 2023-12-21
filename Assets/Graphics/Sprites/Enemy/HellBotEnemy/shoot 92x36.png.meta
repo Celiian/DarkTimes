@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e99660fcf0a0d4f87bd00f0554da9219
-      internalID: -637367521
+      spriteID: 8012c9007c18e4d7badf21d25e4bd4ce
+      internalID: 1867037901
       vertices: []
       indices: 
       edges: []
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bce58ed61b22a424c81b5b9286086d14
-      internalID: 879642250
+      spriteID: a537bc50f983a43e8a16d4f669a879bb
+      internalID: -58889829
       vertices: []
       indices: 
       edges: []
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c58b05e1424874846aefb6cd1ad48a61
-      internalID: -763146409
+      spriteID: 071e4a176ac36462cbd19ee4e8c6d851
+      internalID: 1517406388
       vertices: []
       indices: 
       edges: []
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6270527f574241c7a40cf029eacf68b
-      internalID: -1567325748
+      spriteID: b2783950d5fc94739925f834a094be12
+      internalID: 1618958141
       vertices: []
       indices: 
       edges: []
@@ -208,8 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec2ac083c57144a6cb3ccf5e5b1b3086
-      internalID: -196982605
+      spriteID: bf11d4f95878441d3aaa461f4d26d501
+      internalID: 558977481
       vertices: []
       indices: 
       edges: []
@@ -229,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d421a1a761fe34ce9b384a2029b9fa69
-      internalID: 1189514320
+      spriteID: 97389201068f143e8aeed4de43a626ba
+      internalID: -823516511
       vertices: []
       indices: 
       edges: []
@@ -246,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      shoot 92x36_0: -637367521
-      shoot 92x36_1: 879642250
-      shoot 92x36_2: -763146409
-      shoot 92x36_3: -1567325748
-      shoot 92x36_4: -196982605
-      shoot 92x36_5: 1189514320
+      shoot 92x36_0: 1867037901
+      shoot 92x36_1: -58889829
+      shoot 92x36_2: 1517406388
+      shoot 92x36_3: 1618958141
+      shoot 92x36_4: 558977481
+      shoot 92x36_5: -823516511
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -70,7 +70,7 @@ public class EnemyHitController : MonoBehaviour
     Vector2 CalculateImpulseForce(float strength, float mass)
     {
         float deltaVx = strength / mass;
-        float deltaVy = 0;
+        float deltaVy = 2f;
         return new Vector2(deltaVx, deltaVy);
     }
 

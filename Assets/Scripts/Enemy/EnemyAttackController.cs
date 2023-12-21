@@ -63,7 +63,7 @@ public class EnemyAttackController : MonoBehaviour
 
         Vector2 raycastOrigin = transform.position;
 
-        Vector2 raycastDirection = _isPlayerRight ? Vector2.right : Vector2.left;
+        Vector2 raycastDirection = _facingLeft ? Vector2.left : Vector2.right;
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, m_AttackRange);
 

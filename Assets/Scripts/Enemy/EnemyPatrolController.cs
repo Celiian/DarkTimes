@@ -6,7 +6,7 @@ public class EnemyPatrolController : MonoBehaviour
 {
     [SerializeField] public bool m_PatrolEnabled;
 
-    [SerializeField] private float m_PatrolDistance = 1f;
+    [SerializeField] private float m_PatrolDistance;
 
 
     private EnemyMovementsController _movements;
@@ -20,7 +20,7 @@ public class EnemyPatrolController : MonoBehaviour
         _movements = gameObject.GetComponent<EnemyMovementsController>();
 
         _originalPosition = transform.position;
-        _patrolTarget = _facingLeft ? _originalPosition - new Vector2(m_PatrolDistance, 0f) : _originalPosition + new Vector2(m_PatrolDistance, 0f);
+        _patrolTarget = _originalPosition - new Vector2(m_PatrolDistance, 0f);
 
     }
 
