@@ -27,6 +27,10 @@ public class EnemyHitController : MonoBehaviour
 
     public void takeHit(float attackDirection, float attackStrength)
     {
+        if (_movements.wait)
+        {
+            return;
+        }
 
 
         if (m_HitPoint == 0)

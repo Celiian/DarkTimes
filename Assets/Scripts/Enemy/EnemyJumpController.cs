@@ -14,8 +14,6 @@ public class EnemyJumpController : MonoBehaviour
     private EnemyAggroController _aggro;
     private bool _isGrounded = false;
     private bool _groundInFront = false;
-    private bool _jumped = false;
-
 
     private void Start()
     {
@@ -28,13 +26,17 @@ public class EnemyJumpController : MonoBehaviour
     private void Update()
     {
 
+        if (_movements.wait)
+        {
+            return;
+        }
+
+
         var direction = _movements.m_FacingLeft ? Vector2.left : Vector2.right;
 
         _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, m_Height, m_GroundLayer);
         if(_isGrounded)
         {
-            _jumped = false;
-
             float currentSpeed = Mathf.Abs(_movements.m_Rigidbody.velocity.x);
 
             float detectLimit = 0.5f * currentSpeed;
@@ -71,7 +73,6 @@ public class EnemyJumpController : MonoBehaviour
         if (_groundInFront)
         {
             _groundInFront = false;
-            _jumped = true;
             _movements.m_Rigidbody.AddForce(new Vector2(0, m_JumpForce), ForceMode2D.Impulse);
         }
     }

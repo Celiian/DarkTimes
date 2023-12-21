@@ -7,6 +7,7 @@ public class EnemyAggroController : MonoBehaviour
     [SerializeField] private float m_AggroRange;
     [SerializeField] private float m_DistanceToStop;
     [SerializeField] private float m_Height;
+    [SerializeField] private bool m_PermanentPurchase;
     [SerializeField] public Transform m_Player;
     [SerializeField] private LayerMask m_PlayerLayer;
 
@@ -78,7 +79,7 @@ public class EnemyAggroController : MonoBehaviour
             }
 
         }
-        if (!playerFound && distanceXToPlayer > m_AggroRange)
+        if (!playerFound && distanceXToPlayer > m_AggroRange && !m_PermanentPurchase)
         {
             _movements._purchasing = false;
         }

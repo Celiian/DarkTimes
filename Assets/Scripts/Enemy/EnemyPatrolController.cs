@@ -44,6 +44,11 @@ public class EnemyPatrolController : MonoBehaviour
 
     private void Update()
     {
+        if (_movements.wait)
+        {
+            return;
+        }
+
         _facingLeft = _movements.m_FacingLeft;
         Patrol();
     }

@@ -18,13 +18,22 @@ public class EnemyAttackBrain : MonoBehaviour
     private float _distanceToPlayer;
     private bool _globalCoolDown = false;
 
+    private EnemyMovementsController _movements;
 
     private void Start()
     {
+        _movements = gameObject.GetComponent<EnemyMovementsController>();
+
         _attacks  = gameObject.GetComponents<EnemyAttackController>();
     }
+
     private void Update()
     {
+        if (_movements.wait)
+        {
+            return;
+        }
+
         var agroController = gameObject.GetComponent<EnemyAggroController>();
         _player = agroController.m_Player;
         _distanceToPlayer = Vector2.Distance(transform.position, _player.position);

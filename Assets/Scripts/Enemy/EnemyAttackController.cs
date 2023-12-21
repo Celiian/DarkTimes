@@ -7,6 +7,7 @@ public class EnemyAttackController : MonoBehaviour
     [SerializeField] public float m_Strengh;
     [SerializeField] private float m_AttackCoolDown;
     [SerializeField] public float m_AttackRange;
+    [SerializeField] public float m_MinAttackRange;
     [SerializeField] private string m_AttackType;
     [SerializeField] private float m_Timing;
     [SerializeField] private bool m_Impulse;
@@ -21,7 +22,6 @@ public class EnemyAttackController : MonoBehaviour
     [SerializeField] private bool m_KeepVelocity;
 
 
-    private bool _attacked = false;
     public bool _attackInCoolDown = false;
     private bool _facingLeft;
     private bool _isPlayerRight;
@@ -38,6 +38,12 @@ public class EnemyAttackController : MonoBehaviour
 
     private void Update()
     {
+        if (_movements.wait)
+        {
+            return;
+        }
+
+
         if (_movements.getStunned() > 0)
         {
             return;
@@ -61,10 +67,19 @@ public class EnemyAttackController : MonoBehaviour
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, m_AttackRange);
 
+        if (distanceToPlayer < m_MinAttackRange)
+        {
+            return;
+        }
+
         foreach (var hit in hits)
         {
             if (hit.collider != null && hit.collider.CompareTag("Joueur"))
             {
+                if (!facingPlayer)
+                {
+                    _movements.Flip();
+                }
                 if (!_attackInCoolDown)
                 {
                     if(m_Impulse)

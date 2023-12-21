@@ -17,7 +17,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private GameObject m_Player;
 
 
-    private bool _isGrounded = false;
+    public bool _isGrounded = false;
     private bool _jump = false;
     private bool _jumpedTwice = false;
     private bool _attacking = false;
