@@ -7746,7 +7746,7 @@ MonoBehaviour:
   m_ZDamping: 1
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
-  m_ScreenY: 0.89
+  m_ScreenY: 0.85
   m_CameraDistance: 10
   m_DeadZoneWidth: 0.16
   m_DeadZoneHeight: 2
@@ -17077,7 +17077,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.13725491, g: 0.14117648, b: 0.13725491, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -17102,7 +17102,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.97
+  orthographic size: 4.94
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -17127,7 +17127,7 @@ Transform:
   m_GameObject: {fileID: 1013015527}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.97, y: 0.3865993, z: -10}
+  m_LocalPosition: {x: -18.97, y: -0.031999826, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18841,7 +18841,7 @@ Transform:
   m_GameObject: {fileID: 1068611883}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.97, y: 0.3865993, z: -10}
+  m_LocalPosition: {x: -18.97, y: -0.031999826, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18870,7 +18870,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1988659464}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 4.97
+    OrthographicSize: 4.94
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -32957,7 +32957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47abc953725339428814e0105deb6f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelToLoad: IntroScene2
+  LevelToLoad: Level1
 --- !u!61 &2003473031
 BoxCollider2D:
   m_ObjectHideFlags: 0
