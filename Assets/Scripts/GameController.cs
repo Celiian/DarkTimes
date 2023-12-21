@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour
                 _gameManager = controller.AddComponent<GameManager>();
 
                 DontDestroyOnLoad(controller);
-                _gameManager.countDown = 60;
+                _gameManager.countDown = 3600;
 
             }
 
