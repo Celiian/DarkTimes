@@ -9,13 +9,17 @@ public class EnemyRandomMovementsController : MonoBehaviour
 
     [SerializeField] private int m_RandomMovementsDistance;
 
+    [SerializeField] private LayerMask m_GroundLayer;
+
     private System.Random random = new System.Random();
 
     private EnemyMovementsController _movements;
-    private bool _facingLeft;
 
     private Vector2 _randomLocation = Vector2.zero;
 
+    public bool _turn;
+
+    public bool _blocked;
 
     private void Start()
     {
@@ -34,12 +38,19 @@ public class EnemyRandomMovementsController : MonoBehaviour
         {
             _movements.MoveToLocation(_randomLocation, _movements.m_Speed);
 
+            _blocked = Physics2D.Raycast(transform.position, _movements.m_FacingLeft ? Vector2.left : Vector2.right, 0.2f, m_GroundLayer);
+
+            if (_blocked)
+            {
+                _randomLocation = Vector2.zero;
+                _turn = true;
+            }
+
             if (Vector2.Distance(transform.position, _randomLocation) <= 0.1f)
             {
                 _randomLocation = Vector2.zero;
             }
         }
-
         else
         {
             int randomNumber = random.Next(1, 11);
@@ -49,7 +60,18 @@ public class EnemyRandomMovementsController : MonoBehaviour
 
                 randDistance -= m_RandomMovementsDistance;
 
-                Debug.Log(randDistance);
+                if (_turn)
+                {
+                    if (_movements.m_FacingLeft)
+                    {
+                        randDistance = Mathf.Abs(randDistance);
+                    }
+                    else
+                    {
+                        randDistance = Mathf.Abs(randDistance) * -1;
+                    }
+                }
+
 
                 _randomLocation = new Vector2(transform.position.x + randDistance, transform.position.y);
             }

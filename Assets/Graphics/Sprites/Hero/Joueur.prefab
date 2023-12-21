@@ -685,8 +685,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_FootStep1: {fileID: 2832864976583521605}
   m_FootStep2: {fileID: 8931638315083708399}
-  m_SwordSlash1: {fileID: 0}
-  m_SwordSlash2: {fileID: 0}
+  m_SwordSlash1: {fileID: 5662680406501004440}
+  m_SwordSlash2: {fileID: 3380265413483934931}
   m_SpearSlash1: {fileID: 0}
   m_SpearSlashTakeBack: {fileID: 0}
   pause: 0
@@ -700,7 +700,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 15e2fcb17cd3e4189b7e98ee53b5a941, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e266f549ab67d45649963984c395b8fd, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.005
   m_Pitch: 3

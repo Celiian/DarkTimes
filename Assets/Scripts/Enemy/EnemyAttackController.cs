@@ -38,6 +38,10 @@ public class EnemyAttackController : MonoBehaviour
 
     private void Update()
     {
+        var agroController = gameObject.GetComponent<EnemyAggroController>();
+
+        _player = agroController.m_Player;
+
         if (_movements.wait)
         {
             return;
@@ -49,9 +53,10 @@ public class EnemyAttackController : MonoBehaviour
             return;
         }
 
-        var agroController = gameObject.GetComponent<EnemyAggroController>();
-
-        _player = agroController.m_Player;
+        if (_player.GetComponent<PlayerActionsController>()._dead)
+        {
+            return;
+        }
 
         _facingLeft = _movements.m_FacingLeft;
 
