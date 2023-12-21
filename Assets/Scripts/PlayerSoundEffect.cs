@@ -15,6 +15,8 @@ public class PlayerSoundEffect : MonoBehaviour
 
     [SerializeField] AudioSource m_SpearSlash1;
 
+    [SerializeField] AudioSource m_SpearSlashTakeBack;
+
     public bool pause = false;
 
     void Start()
@@ -65,6 +67,14 @@ public class PlayerSoundEffect : MonoBehaviour
         if (!pause)
         {
             m_SpearSlash1.Play();
+        }
+    }
+
+    public void SpearSlashTakeBackSound()
+    {
+        if (!pause)
+        {
+            m_SpearSlashTakeBack.Play();
         }
     }
 }
