@@ -6,6 +6,7 @@ public class EnemyAttackBrain : MonoBehaviour
 {
 
     [SerializeField] private float m_AttacksCoolDown = 1f;
+    [SerializeField] private GameController m_GameController;
 
     private EnemyAttackController[] _attacks;
 
@@ -29,6 +30,10 @@ public class EnemyAttackBrain : MonoBehaviour
 
     private void Update()
     {
+        if(m_GameController.m_countdownTime == 0)
+        {
+            return;
+        }
         if (_movements.wait)
         {
             return;
