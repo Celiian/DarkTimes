@@ -45,6 +45,7 @@ public class LoreScript : MonoBehaviour {
 
                     m_Player._wait = true;
                     Invoke(nameof(stopWait), m_WaitTime);
+                    break;
                 }
             }
             index++;

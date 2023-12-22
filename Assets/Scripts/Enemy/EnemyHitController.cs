@@ -72,6 +72,7 @@ public class EnemyHitController : MonoBehaviour
                 _enemySpawner._enemyNumber -= 1;
             }
             _movements.m_Anim.SetTrigger("Death");
+            _movements.wait = true;
             m_GameController.addTime(m_TimeReward);
         }
     }

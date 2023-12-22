@@ -100,6 +100,8 @@ public class PlayerMovementController : MonoBehaviour
 
     void Update()
     {
+        _anim = _spearMode ? m_AnimSpear : m_AnimSword;
+
         if (_dead)
         {
             return;
@@ -109,6 +111,7 @@ public class PlayerMovementController : MonoBehaviour
             _anim.SetBool(_sprintMode, false);
 
             m_Rigidbody.velocity = new Vector2(0, 0);
+            _gameController.PauseTimer(false);
             return;
         }
 
@@ -150,8 +153,8 @@ public class PlayerMovementController : MonoBehaviour
     private void HandleGroundedInput()
     {
      
-        _anim.SetBool(_sprintMode, Mathf.Abs(m_Rigidbody.velocity.x) > 1);
-        _gameController.PauseTimer(Mathf.Abs(m_Rigidbody.velocity.x) > 1);
+        _anim.SetBool(_sprintMode, Mathf.Abs(m_Rigidbody.velocity.x) > 0.2f);
+        _gameController.PauseTimer(Mathf.Abs(m_Rigidbody.velocity.x) > 0.2f);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -201,7 +204,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         var jumpMode = "Jump";
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
         {
             if (_isGrounded)
             {
