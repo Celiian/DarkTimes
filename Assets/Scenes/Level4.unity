@@ -3197,7 +3197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4482505809908936247, guid: 2ab7f92ec64274fbfb83251bceb8438e, type: 3}
       propertyPath: m_HitPoint
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4482505809908936247, guid: 2ab7f92ec64274fbfb83251bceb8438e, type: 3}
       propertyPath: m_GameController
@@ -4237,9 +4237,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ceci est un exemple de texte de lore.
-
-    Et j''aime les pommes de terre'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
