@@ -59,7 +59,7 @@ public class EnemyAggroController : MonoBehaviour
 
         var speed = _movements.m_Speed * 2;
 
-        if (m_CheatPurchase)
+        if (m_CheatPurchase || m_PermanentPurchase)
         {
             if (distanceToPlayer > m_DistanceToStop)
             { 
