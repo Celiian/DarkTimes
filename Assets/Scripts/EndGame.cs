@@ -58,6 +58,7 @@ public class EndGame : MonoBehaviour
             yield return new WaitForSeconds(3f);
 
             m_player.transform.position = new Vector2(-1.424f, -3.476f);
+            m_player.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             _first = false;
         }
 
@@ -79,13 +80,11 @@ public class EndGame : MonoBehaviour
         showingText = false;
     }
 
-    // Function to call when all texts have been displayed
     private void AllTextsDisplayedFunction()
     {
         _allDisplayed = true;
-        //m_player._wait = false;
         m_player.GetComponent<PlayerActionsController>().die();
-        Invoke(nameof(menu), 3f);
+        Invoke(nameof(menu), 7f);
     }
 
 

@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
         m_countdownTime = _gameManager.countDown;
 
         
-            countdownCoroutine = StartCoroutine(StartCountdown());
+         countdownCoroutine = StartCoroutine(StartCountdown());
         
 
     }
@@ -49,12 +49,10 @@ public class GameController : MonoBehaviour
     public IEnumerator StartCountdown()
     {
 
-        if (m_Tuto)
+        if (!m_Tuto)
         {
-            yield return new WaitForSeconds(0.01f);
-        }
 
-        while (m_countdownTime > 0)
+            while (m_countdownTime > 0)
             {
                 if (_accelerate)
                 {
@@ -84,13 +82,14 @@ public class GameController : MonoBehaviour
             {
                 m_countdownTime = 0;
 
-            Invoke(nameof(GameOver), 2.5f);
+                Invoke(nameof(GameOver), 2.5f);
 
-            m_PlayerController.GetComponent<PlayerActionsController>().die();
+                m_PlayerController.GetComponent<PlayerActionsController>().die();
 
-        }
+            }
 
             countdownText.text = "0:00.00";
+        }
         
     }
 
@@ -106,9 +105,6 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(6);
     }
 
-    private void Update()
-    {
-    }
 
     public void PauseTimer(bool play)
     {
