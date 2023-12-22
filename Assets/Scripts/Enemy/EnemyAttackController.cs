@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAttackController : MonoBehaviour
 {
     [SerializeField] public float m_Strengh;
+    [SerializeField] private float m_Damage = 5f;
     [SerializeField] private float m_AttackCoolDown;
     [SerializeField] public float m_AttackRange;
     [SerializeField] public float m_MinAttackRange;
@@ -21,6 +22,7 @@ public class EnemyAttackController : MonoBehaviour
     [SerializeField] private string m_Trigger;
     [SerializeField] private bool m_KeepVelocity;
     [SerializeField] private bool m_Big;
+
 
 
     public bool _attackInCoolDown = false;
@@ -123,7 +125,7 @@ public class EnemyAttackController : MonoBehaviour
 
                     var attackStrength = (m_Strengh) * velocity;
 
-                    controller.takeHit(attackDirection, attackStrength, m_Timing);
+                    controller.takeHit(attackDirection, attackStrength, m_Timing, m_Damage);
 
                     _attackInCoolDown = true;
                     Invoke(nameof(coolDown), m_AttackCoolDown);

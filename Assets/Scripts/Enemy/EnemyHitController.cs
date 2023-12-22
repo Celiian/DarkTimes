@@ -18,6 +18,7 @@ public class EnemyHitController : MonoBehaviour
     private float _attackStrength;
     private EnemySpawner _enemySpawner;
 
+    public bool _dead;
 
     private EnemyMovementsController _movements;
 
@@ -71,6 +72,7 @@ public class EnemyHitController : MonoBehaviour
             {
                 _enemySpawner._enemyNumber -= 1;
             }
+            _dead = true;
             _movements.m_Anim.SetTrigger("Death");
             _movements.wait = true;
             m_GameController.addTime(m_TimeReward);
@@ -90,6 +92,18 @@ public class EnemyHitController : MonoBehaviour
         AnimatorStateInfo stateInfo = _movements.m_Anim.GetCurrentAnimatorStateInfo(0);
 
         var dead = stateInfo.IsName("DeadEnemy");
+
+        if (m_HitPoint == 0 && !_dead)
+        {
+            if (_enemySpawner != null)
+            {
+                _enemySpawner._enemyNumber -= 1;
+            }
+            _dead = true;
+            _movements.m_Anim.SetTrigger("Death");
+            _movements.wait = true;
+            m_GameController.addTime(m_TimeReward);
+        }
 
         if (dead)
         {

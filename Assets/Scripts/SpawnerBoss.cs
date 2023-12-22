@@ -13,14 +13,18 @@ public class SpawnerBoss : MonoBehaviour
     [SerializeField] private Animator m_doorLeft;
     [SerializeField] private Animator m_doorRight;
     [SerializeField] private AudioSource m_Music;
-    
 
-
+    public bool m_Stop = false;
     private int _enemyNumber;
 
 
     void InvokeEnemy()
     {
+        if (m_Stop)
+        {
+            return;
+        }
+
         if (_enemyNumber < m_EnemyNumber)
         {
             Instantiate(myPrefab, m_SpawnerLeft.transform.position, Quaternion.identity);

@@ -34,15 +34,18 @@ public class PlayerActionsController : MonoBehaviour
     private bool _attacked = false;
     private float _attackDirection;
     private float _attackStrength;
+    private float _damage;
+
 
 
     private string _groundMode = "Grounded";
     private string _attackMode = "Attack";
 
-    public void takeHit(float attackDirection, float attackStrength, float timing)
+    public void takeHit(float attackDirection, float attackStrength, float timing, float damage)
     {
         _attackDirection = attackDirection;
         _attackStrength = attackStrength;
+        _damage = damage;
         _attacked = true;
 
         Invoke(nameof(ApplyHit), timing);
@@ -55,7 +58,7 @@ public class PlayerActionsController : MonoBehaviour
         {
             _attacked = false;
 
-            _gameController.DecountTimer(5);
+            _gameController.DecountTimer(_damage);
 
             Vector2 force = CalculateImpulseForce(_attackStrength, m_Rigidbody.mass);
 
