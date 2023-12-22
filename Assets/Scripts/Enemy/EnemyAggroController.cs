@@ -8,10 +8,11 @@ public class EnemyAggroController : MonoBehaviour
     [SerializeField] private float m_DistanceToStop;
     [SerializeField] private float m_Height;
     [SerializeField] private bool m_PermanentPurchase;
+    [SerializeField] public bool m_CheatPurchase;
     [SerializeField] public Transform m_Player;
     [SerializeField] private LayerMask m_PlayerLayer;
 
-
+    private System.Random random = new System.Random();
     private EnemyMovementsController _movements;
     public bool _isPlayerRight;
     public bool _playerJumpOver = false;
@@ -20,6 +21,14 @@ public class EnemyAggroController : MonoBehaviour
     private void Start()
     {
         _movements = gameObject.GetComponent<EnemyMovementsController>();
+        if (m_Player == null)
+        {
+            m_Player = FindObjectOfType<PlayerActionsController>().transform;
+            if(m_Player == null)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
 
@@ -28,6 +37,20 @@ public class EnemyAggroController : MonoBehaviour
         if(_movements.getStunned() > 0)
         {
             return;
+        }
+
+        if (m_Player.GetComponent<PlayerActionsController>()._dead)
+        {
+            return;
+        }
+
+        if (m_CheatPurchase)
+        {
+            int rand = random.Next(1, 100);
+
+            rand =- 50;
+
+            m_DistanceToStop += (rand / 100);            
         }
 
         var distanceToPlayer = Vector2.Distance(transform.position, m_Player.position);
@@ -39,9 +62,21 @@ public class EnemyAggroController : MonoBehaviour
 
         var speed = _movements.m_Speed * 2;
 
+        if (m_CheatPurchase)
+        {
+            if (distanceToPlayer > m_DistanceToStop)
+            { 
+                _movements.MoveToLocation(m_Player.position, speed);
+            }
+            return;
+        }
+
+
         Vector2 raycastOrigin = transform.position;
 
         Vector2 raycastDirection = _movements.m_FacingLeft ? Vector2.left : Vector2.right;
+
+      
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(raycastOrigin, raycastDirection, m_AggroRange);
 
@@ -50,7 +85,7 @@ public class EnemyAggroController : MonoBehaviour
         {
             if (hit.collider != null && hit.collider.CompareTag("Joueur"))
             {
-                if (_isPlayerRight && !_movements.m_FacingLeft)
+                if ((_isPlayerRight && !_movements.m_FacingLeft) || m_PermanentPurchase)
                 {
                     playerFound = true;
 
@@ -85,13 +120,6 @@ public class EnemyAggroController : MonoBehaviour
             if (distanceXToPlayer > m_AggroRange && !m_PermanentPurchase)
             {
                 _movements._purchasing = false;
-            }
-        }
-        else
-        {
-            if (distanceToPlayer > m_DistanceToStop)
-            {
-                _movements.MoveToLocation(m_Player.position, speed);
             }
         }
     }

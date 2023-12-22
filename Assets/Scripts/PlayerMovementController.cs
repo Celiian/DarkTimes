@@ -39,6 +39,8 @@ public class PlayerMovementController : MonoBehaviour
     private string _sprintMode = "Move";
     private string _jumpMode = "Jump";
 
+    public bool _wait = false;
+
     private void Start()
     {
         _swordRenderer = m_AnimSword.GetComponent<SpriteRenderer>();
@@ -102,6 +104,14 @@ public class PlayerMovementController : MonoBehaviour
         {
             return;
         }
+        if (_wait)
+        {
+            _anim.SetBool(_sprintMode, false);
+
+            m_Rigidbody.velocity = new Vector2(0, 0);
+            return;
+        }
+
 
         declarations();
 
@@ -112,7 +122,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             if (_isGrounded)
             {
-                HandleGroundedInput(_anim);
+                HandleGroundedInput();
 
                
                 _sprint = Input.GetKey(KeyCode.LeftShift);
@@ -135,34 +145,24 @@ public class PlayerMovementController : MonoBehaviour
         
     }
 
-    private void FixedUpdate()
-    {
-        if (_jump)
-        {
-            _gameController.DecountTimer(2);
-            var force = _jumpedTwice ? m_JumpForce * 1.1f : m_JumpForce;
-            _jump = false;
-            m_Rigidbody.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
-        }
-    }
 
    
-    private void HandleGroundedInput(Animator anim)
+    private void HandleGroundedInput()
     {
      
-        anim.SetBool(_sprintMode, Mathf.Abs(m_Rigidbody.velocity.x) > 1);
+        _anim.SetBool(_sprintMode, Mathf.Abs(m_Rigidbody.velocity.x) > 1);
         _gameController.PauseTimer(Mathf.Abs(m_Rigidbody.velocity.x) > 1);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _jump = true;
             _jumpedTwice = false;
-            anim.SetTrigger(_jumpMode);
+            _anim.SetTrigger(_jumpMode);
         }
         else if (m_DoubleJump && !_jumpedTwice && Input.GetKeyDown(KeyCode.Space))
         {
             _jump = true;
-            anim.SetTrigger(_jumpMode);
+            _anim.SetTrigger(_jumpMode);
             _jumpedTwice = true;
         }
 
@@ -215,6 +215,23 @@ public class PlayerMovementController : MonoBehaviour
                 anim.SetTrigger(jumpMode);
                 _jumpedTwice = true;
             }
+        }
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (_jump)
+        {
+            _gameController.DecountTimer(2);
+            var force = _jumpedTwice ? m_JumpForce * 1.3f : m_JumpForce;
+            _jump = false;
+
+            // Set Y velocity to 0 before adding jump force
+            m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, 0);
+
+            // Add the jump force
+            m_Rigidbody.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
         }
     }
 

@@ -25,7 +25,7 @@ public class PlayerActionsController : MonoBehaviour
     private bool _isGrounded = false;
     private bool _attacking = false;
     private bool _spearMode = false;
-    private bool _dead = false;
+    public bool _dead = false;
     private float _horizontalInput;
     private bool _facingLeft;
     private Animator _anim;
@@ -103,8 +103,11 @@ public class PlayerActionsController : MonoBehaviour
     public void die()
     {
         _dead = true;
+        m_Rigidbody.velocity = new Vector2(0, 0);
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
         _anim.SetBool("Dead", true);
         m_Player.GetComponent<PlayerMovementController>().die();
+
     }
 
     public void UpdateWeaponMode(bool spearMode)
@@ -230,6 +233,5 @@ public class PlayerActionsController : MonoBehaviour
             }
         }
 
-        
     }
 }

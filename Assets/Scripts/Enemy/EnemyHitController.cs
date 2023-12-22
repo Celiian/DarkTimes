@@ -16,6 +16,7 @@ public class EnemyHitController : MonoBehaviour
 
     private float _attackDirection;
     private float _attackStrength;
+    private EnemySpawner _enemySpawner;
 
 
     private EnemyMovementsController _movements;
@@ -23,6 +24,11 @@ public class EnemyHitController : MonoBehaviour
     private void Start()
     {
         _movements = gameObject.GetComponent<EnemyMovementsController>();
+        if(m_GameController == null)
+        {
+            m_GameController = FindFirstObjectByType<GameController>();
+        }
+        _enemySpawner = FindFirstObjectByType<EnemySpawner>();
     }
 
     public void takeHit(float attackDirection, float attackStrength)
@@ -61,6 +67,10 @@ public class EnemyHitController : MonoBehaviour
 
         if (m_HitPoint == 0)
         {
+            if (_enemySpawner != null)
+            {
+                _enemySpawner._enemyNumber -= 1;
+            }
             _movements.m_Anim.SetTrigger("Death");
             m_GameController.addTime(m_TimeReward);
         }
