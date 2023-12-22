@@ -33,7 +33,7 @@ public class EnemyPatrolController : MonoBehaviour
         }
 
         if (m_PatrolEnabled && !_movements._purchasing) {
-            if (Mathf.Abs(Vector2.Distance(transform.position, _patrolTarget)) <= 0.1f)
+            if (Mathf.Abs(Vector2.Distance(transform.position, _patrolTarget)) <= 0.3f)
             {
                 _patrolTarget = _facingLeft ? _originalPosition + new Vector2(m_PatrolDistance, 0f) : _originalPosition - new Vector2(m_PatrolDistance, 0f);
             }

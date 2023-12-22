@@ -39,6 +39,8 @@ public class PlayerMovementController : MonoBehaviour
     private string _sprintMode = "Move";
     private string _jumpMode = "Jump";
 
+    public bool _wait = false;
+
     private void Start()
     {
         _swordRenderer = m_AnimSword.GetComponent<SpriteRenderer>();
@@ -102,6 +104,14 @@ public class PlayerMovementController : MonoBehaviour
         {
             return;
         }
+        if (_wait)
+        {
+            _anim.SetBool(_sprintMode, false);
+
+            m_Rigidbody.velocity = new Vector2(0, 0);
+            return;
+        }
+
 
         declarations();
 
@@ -112,7 +122,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             if (_isGrounded)
             {
-                HandleGroundedInput(_anim);
+                HandleGroundedInput();
 
                
                 _sprint = Input.GetKey(KeyCode.LeftShift);
@@ -137,22 +147,22 @@ public class PlayerMovementController : MonoBehaviour
 
 
    
-    private void HandleGroundedInput(Animator anim)
+    private void HandleGroundedInput()
     {
      
-        anim.SetBool(_sprintMode, Mathf.Abs(m_Rigidbody.velocity.x) > 1);
+        _anim.SetBool(_sprintMode, Mathf.Abs(m_Rigidbody.velocity.x) > 1);
         _gameController.PauseTimer(Mathf.Abs(m_Rigidbody.velocity.x) > 1);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _jump = true;
             _jumpedTwice = false;
-            anim.SetTrigger(_jumpMode);
+            _anim.SetTrigger(_jumpMode);
         }
         else if (m_DoubleJump && !_jumpedTwice && Input.GetKeyDown(KeyCode.Space))
         {
             _jump = true;
-            anim.SetTrigger(_jumpMode);
+            _anim.SetTrigger(_jumpMode);
             _jumpedTwice = true;
         }
 
