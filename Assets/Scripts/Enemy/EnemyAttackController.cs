@@ -53,6 +53,12 @@ public class EnemyAttackController : MonoBehaviour
             return;
         }
 
+        if(_player == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (_player.GetComponent<PlayerActionsController>()._dead)
         {
             return;

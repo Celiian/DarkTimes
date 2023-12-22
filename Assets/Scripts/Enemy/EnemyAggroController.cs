@@ -24,10 +24,6 @@ public class EnemyAggroController : MonoBehaviour
         if (m_Player == null)
         {
             m_Player = FindObjectOfType<PlayerActionsController>().transform;
-            if(m_Player == null)
-            {
-                Destroy(gameObject);
-            }
         }
     }
 

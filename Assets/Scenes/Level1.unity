@@ -28527,7 +28527,8 @@ MonoBehaviour:
   m_TextField: {fileID: 1645718336}
   m_Text:
   - Before you stand the ones who brought ruin to your kin. With each foe you face,
-    you confront the architects of your clan's demise.
+    you confront the architects of your clan's demise. Remember, vanquishing these
+    enemies grants you precious time, fueling your pursuit of vengeance.
   m_WaitTime: 3
   m_Triggers:
   - {fileID: 1809434859}

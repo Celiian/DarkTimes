@@ -204,7 +204,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         var jumpMode = "Jump";
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
         {
             if (_isGrounded)
             {
