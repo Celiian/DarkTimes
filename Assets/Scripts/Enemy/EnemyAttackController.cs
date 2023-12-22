@@ -20,6 +20,7 @@ public class EnemyAttackController : MonoBehaviour
     [SerializeField] private float m_EffectTiming;
     [SerializeField] private string m_Trigger;
     [SerializeField] private bool m_KeepVelocity;
+    [SerializeField] private bool m_Big;
 
 
     public bool _attackInCoolDown = false;
@@ -73,6 +74,11 @@ public class EnemyAttackController : MonoBehaviour
         var facingPlayer = _isPlayerRight && !_facingLeft || !_isPlayerRight && _facingLeft;
 
         Vector2 raycastOrigin = transform.position;
+
+        if (m_Big)
+        {
+            raycastOrigin.y = _player.position.y;
+        }
 
         Vector2 raycastDirection = _facingLeft ? Vector2.left : Vector2.right;
 

@@ -9,6 +9,7 @@ public class EnemyAggroController : MonoBehaviour
     [SerializeField] private float m_Height;
     [SerializeField] private bool m_PermanentPurchase;
     [SerializeField] public bool m_CheatPurchase;
+    [SerializeField] public bool m_Big;
     [SerializeField] public Transform m_Player;
     [SerializeField] private LayerMask m_PlayerLayer;
 
@@ -67,8 +68,13 @@ public class EnemyAggroController : MonoBehaviour
             return;
         }
 
-
+        
         Vector2 raycastOrigin = transform.position;
+
+        if (m_Big)
+        {
+            raycastOrigin.y = m_Player.position.y;
+        }
 
         Vector2 raycastDirection = _movements.m_FacingLeft ? Vector2.left : Vector2.right;
 
