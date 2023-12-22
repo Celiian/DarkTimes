@@ -22,26 +22,38 @@ TagManager:
   - Attack
   - DecoFront
   - DecoBack
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: New Layer 1
+    uniqueID: 1089944803
+    locked: 0
+  - name: New Layer 2
+    uniqueID: 2486846757
+    locked: 0
+  - name: New Layer 3
+    uniqueID: 3426163329
+    locked: 0
+  - name: New Layer 4
+    uniqueID: 4222443533
     locked: 0
