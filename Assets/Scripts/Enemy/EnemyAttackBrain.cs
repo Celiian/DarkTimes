@@ -26,6 +26,19 @@ public class EnemyAttackBrain : MonoBehaviour
         _movements = gameObject.GetComponent<EnemyMovementsController>();
 
         _attacks  = gameObject.GetComponents<EnemyAttackController>();
+
+        if (m_GameController == null)
+        {
+            m_GameController = FindFirstObjectByType<GameController>();
+        }
+        var agroController = gameObject.GetComponent<EnemyAggroController>();
+
+        _player = agroController.m_Player;
+        if (_player == null)
+        {
+            _player = FindObjectOfType<PlayerActionsController>().transform;
+        }
+
     }
 
     private void Update()
@@ -39,8 +52,7 @@ public class EnemyAttackBrain : MonoBehaviour
             return;
         }
 
-        var agroController = gameObject.GetComponent<EnemyAggroController>();
-        _player = agroController.m_Player;
+        
         _distanceToPlayer = Vector2.Distance(transform.position, _player.position);
 
         checkRange();
