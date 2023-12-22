@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     private Coroutine countdownCoroutine;
     private bool _accelerate;
     private GameManager _gameManager;
+    private float _startingtime = 300;
 
     private void Start()
     {
@@ -33,7 +34,7 @@ public class GameController : MonoBehaviour
                 _gameManager = controller.AddComponent<GameManager>();
 
                 DontDestroyOnLoad(controller);
-                _gameManager.countDown = 3600;
+                _gameManager.countDown = _startingtime;
 
             }
 
@@ -95,14 +96,14 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
-        _gameManager.countDown = 3600;
+        _gameManager.countDown = _startingtime;
         fade.FadeIn();
         Invoke(nameof(LoadScene),1);
         ;
     }
     private void LoadScene()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene(6);
     }
 
     private void Update()
