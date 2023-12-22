@@ -28075,6 +28075,7 @@ MonoBehaviour:
   countdownText: {fileID: 212259099}
   m_PlayerController: {fileID: 1247784934}
   m_Tuto: 0
+  fade: {fileID: 0}
   m_countdownTime: 3600
 --- !u!4 &1559696392
 Transform:
