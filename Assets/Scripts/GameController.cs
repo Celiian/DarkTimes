@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private bool m_Tuto;
 
 
-
+    public FadeInOut fade;
     public float m_countdownTime;
     private Coroutine countdownCoroutine;
     private bool _accelerate;
@@ -18,7 +19,8 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-     
+
+        fade = FindObjectOfType<FadeInOut>();
 
         _gameManager = FindObjectOfType<GameManager>();
 
@@ -80,11 +82,27 @@ public class GameController : MonoBehaviour
             if (m_countdownTime <= 0)
             {
                 m_countdownTime = 0;
-                m_PlayerController.GetComponent<PlayerActionsController>().die();
-            }
+
+            Invoke(nameof(GameOver), 2.5f);
+
+            m_PlayerController.GetComponent<PlayerActionsController>().die();
+
+        }
 
             countdownText.text = "0:00.00";
         
+    }
+
+    private void GameOver()
+    {
+        _gameManager.countDown = 3600;
+        fade.FadeIn();
+        Invoke(nameof(LoadScene),1);
+        ;
+    }
+    private void LoadScene()
+    {
+        SceneManager.LoadScene(5);
     }
 
     private void Update()
@@ -127,6 +145,7 @@ public class GameController : MonoBehaviour
         if (m_countdownTime <= 0)
         {
             m_countdownTime = 0;
+            Invoke(nameof(GameOver), 3);
             m_PlayerController.GetComponent<PlayerActionsController>().die();
         }
         int minutes = Mathf.FloorToInt(m_countdownTime / 60);
